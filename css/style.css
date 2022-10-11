@@ -3,6 +3,7 @@
 body {
   font-family: 'Press Start 2P', cursive;
   font-size: 24px;
+  text-transform: uppercase;
 }
 button {
   border: 0;
@@ -17,65 +18,23 @@ button {
   --Pink: #d856a7;
 }
 
-/* carousel */
-.carousel-container {
-  position: relative;
+/**************** Header ****************/
+.header {
   display: flex;
-  justify-content: center;
+
+  justify-content: space-between;
+}
+.header-list {
+  display: flex;
   align-items: center;
+  column-gap: 40px;
+  list-style-type: none;
 }
-.carousel {
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: row;
-  width: 1246px;
-  height: 420px;
-  overflow: hidden;
-  border: 1px solid black;
-  position: relative;
+.header-logo {
+  font-size: 40px;
 }
-.carousel-item {
-  min-width: 1246px;
-  padding: 60px;
-  border: 2px solid red;
+a {
+  color: black;
+  text-decoration: none;
 }
-.carousel-item > h2 {
-  width: 700px;
-  margin-bottom: 60px;
-  /* font-size: 80px; */
-}
-.carousel-item-text {
-  display: flex;
-  column-gap: 20px;
-}
-.difficulty {
-  color: var(--Second);
-  font-size: 100px;
-}
-.carousel-play-pause {
-  position: absolute;
-  top: 24px;
-  right: 24px;
-  width: 48px;
-  height: 48px;
-}
-.carousel-description {
-  width: 700px;
-  font-size: 32px;
-}
-.carousel-play-pause > span {
-  font-size: 48px;
-  color: var(--White);
-}
-.carousel-next {
-  position: absolute;
-  top: 182px;
-  right: -40px;
-  z-index: 100;
-}
-.carousel-prev {
-  position: absolute;
-  top: 182px;
-  left: 0px;
-  transform: rotate(180deg);
-}
+

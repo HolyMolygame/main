@@ -7,8 +7,14 @@ class Header extends Component {
 
   domStr() {
     return `
-    <div>안녕하세요</div>
-    `
+    <div class="header">
+      <h1 class="header-logo">HOLY MOLY</h1>
+      <ul class="header-list">
+        <li class="header-rank"><a href="/">RANK</a></li>
+        <li class="header-signin"><a href="/">SIGNIN/SIGNUP</a></li>
+      </ul>
+    </div>
+    `;
   }
 }
 
