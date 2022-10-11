@@ -115,7 +115,7 @@ a {
   width: 100%;
   font-size: 18px;
   margin-top: 160px;
-  position: absolute;
+  position: relative;
   bottom: 20px;
 }
 .footer-inner {
