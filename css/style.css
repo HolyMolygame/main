@@ -79,3 +79,44 @@ button {
   left: 0px;
   transform: rotate(180deg);
 }
+
+.rank-title {
+  color: #fff;
+  text-align: center;
+  background-color: #666666;
+}
+
+.rank-title span {
+  color: #d856a7;
+}
+
+.rank-container {
+  width: 1270px;
+  height: 526px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 24px;
+  background-color: #666666;
+  color: #fff;
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  border-radius: 0px 0px 20px 20px;
+  overflow: scroll;
+}
+
+.rank-table {
+  width: 100%;
+  padding: 40px 145px;
+}
+
+.rank-container-head tr th {
+  padding-bottom: 32px;
+}
+
+.rank-container-body tr td {
+  padding-bottom: 24px;
+}
+
+.rank-first {
+  font-size: 32px;
+  color: #ffd233;
+}
