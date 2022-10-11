@@ -81,6 +81,7 @@ button {
 }
 
 .rank-title {
+  font-size: 80px;
   color: #fff;
   text-align: center;
   background-color: #666666;
@@ -119,4 +120,39 @@ button {
 .rank-first {
   font-size: 32px;
   color: #ffd233;
+}
+
+.game-title {
+  font-size: 80px;
+  color: #fff;
+  background-color: #666666;
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.card-container {
+  width: 1020px;
+  margin: 0 auto 40px auto;
+}
+
+.cards {
+  width: 150px;
+  height: 150px;
+  color: #fff;
+  font-size: 60px;
+  line-height: 150px;
+  background-color: #5eccc7;
+  text-align: center;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+.reset-button {
+  color: #ffd233;
+  font-size: 24px;
+  width: 160px;
+  height: 80px;
+  margin: 0 auto;
+  display: inherit;
 }
