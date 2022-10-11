@@ -147,7 +147,6 @@ button {
   font-size: 18px;
   color: var(--Pink);
 }
-
 /****************************** signin end**********************************/
 
 /****************************** signup start **********************************/
@@ -199,3 +198,79 @@ button {
   margin-top: 10px;
 }
 /****************************** signup end **********************************/
+.rank-title {
+  font-size: 80px;
+  color: #fff;
+  text-align: center;
+  background-color: #666666;
+}
+
+.rank-title span {
+  color: #d856a7;
+}
+
+.rank-container {
+  width: 1270px;
+  height: 526px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 24px;
+  background-color: #666666;
+  color: #fff;
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  border-radius: 0px 0px 20px 20px;
+  overflow: scroll;
+}
+
+.rank-table {
+  width: 100%;
+  padding: 40px 145px;
+}
+
+.rank-container-head tr th {
+  padding-bottom: 32px;
+}
+
+.rank-container-body tr td {
+  padding-bottom: 24px;
+}
+
+.rank-first {
+  font-size: 32px;
+  color: #ffd233;
+}
+
+.game-title {
+  font-size: 80px;
+  color: #fff;
+  background-color: #666666;
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.card-container {
+  width: 1020px;
+  margin: 0 auto 40px auto;
+}
+
+.cards {
+  width: 150px;
+  height: 150px;
+  color: #fff;
+  font-size: 60px;
+  line-height: 150px;
+  background-color: #5eccc7;
+  text-align: center;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+.reset-button {
+  color: #ffd233;
+  font-size: 24px;
+  width: 160px;
+  height: 80px;
+  margin: 0 auto;
+  display: inherit;
+}
