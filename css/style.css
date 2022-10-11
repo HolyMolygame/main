@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+body {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 24px;
+}
+button{
+  border: 0;
+  background-color: transparent;
+}
+:root{
+  --Primary : #B10D8D;
+  --Second:#FFD233;
+  --Gray:#666666;
+  --White:#D9D9D9;
+  --Mint:#5ECCC7;
+  --Pink:#D856A7;
+}
+
+/* carousel */
+.carousel {
+  display: flex;
+  width: 1246px;
+  height: 420px;
+  overflow: hidden;
+  border: 1px solid black;
+  position: relative;
+}
+.carousel-item {
+  width: 1046px;
+  height: 420px;
+  padding: 60px;
+  border: 2px solid red;
+}
+.carousel-item > h2 {
+  margin-bottom: 60px;
+  /* font-size: 80px; */
+}
+.carousel-item-text{
+  display: flex;
+}
+.difficulty {
+  color: var(--Second);
+  font-size: 100px;
+}
+.carousel-play-pause{
+  position: absolute;
+  top: 24px;
+  right:24px;
+  width: 48px;
+  height: 48px;
+}
+.carousel-description {
+  font-size: 32px;
+}
+.carousel-play-pause > span{
+  font-size: 48px;
+  color:var(--White)
+}
