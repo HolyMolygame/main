@@ -17,6 +17,10 @@ button {
   --Pink: #d856a7;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 /* carousel */
 .carousel-container {
   position: relative;
@@ -80,7 +84,7 @@ button {
   transform: rotate(180deg);
 }
 
-/****************************** signin **********************************/
+/****************************** signin start**********************************/
 .signin-container {
   width: 800px;
   height: 654px;
@@ -143,3 +147,55 @@ button {
   font-size: 18px;
   color: var(--Pink);
 }
+
+/****************************** signin end**********************************/
+
+/****************************** signup start **********************************/
+.signup-container {
+  width: 800px;
+  /* height: 800px; */
+  background-color: #000;
+  border-radius: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  margin: 0 auto;
+  text-align: center;
+  color: #fff;
+}
+
+.signup-title {
+  font-size: 60px;
+  font-weight: 300;
+  padding-top: 80px;
+  margin-bottom: 80px;
+}
+
+.signup_info {
+  width: 613px;
+  font-size: 18px;
+  margin: 0 auto;
+}
+
+.signup_info ~ .input-container {
+  margin-bottom: 80px;
+}
+
+.submit-btn {
+  width: 160px;
+  border: 2px solid var(--Primary);
+  border-radius: 20px;
+  font-size: 18px;
+  color: var(--Pink);
+  display: inline-block;
+  text-decoration: none;
+  line-height: 80px;
+  box-sizing: border-box;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.error {
+  font-size: 14px;
+  color: red;
+  margin-top: 10px;
+}
+/****************************** signup end **********************************/
