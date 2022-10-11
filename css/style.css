@@ -21,6 +21,10 @@ button {
   --Pink: #d856a7;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 /**************** Header ****************/
 .header {
   display: flex;
@@ -100,7 +104,7 @@ a {
   border-image: linear-gradient(to right, var(--Gray) 20%, orange 100%);
   border-image-slice: 1;
 }
-.profile-description:nth-child(1){
+.profile-description:nth-child(1) {
   border: 3px solid transparent;
   border-image: linear-gradient(to right, orange 20%, var(--Gray) 100%);
   border-image-slice: 1;
@@ -123,4 +127,194 @@ a {
 }
 .footer-description {
   text-align: center;
+}
+
+/****************************** signin start**********************************/
+.signin-container {
+  width: 800px;
+  height: 654px;
+  background-color: #000;
+  border-radius: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  margin: 0 auto;
+  text-align: center;
+  color: #fff;
+}
+
+.input-container {
+  display: flex;
+  border-bottom: 2px solid #fff;
+}
+
+.input-container > label {
+  line-height: 80px;
+  margin-left: 30px;
+}
+
+.input-container > input {
+  line-height: 80px;
+  background: none;
+  border: none;
+}
+
+.signin-title {
+  font-size: 60px;
+  font-weight: 300;
+  padding-top: 80px;
+  margin-bottom: 80px;
+}
+
+.signin_info {
+  width: 613px;
+  font-size: 18px;
+  margin: 0 auto;
+}
+
+.signup-btn {
+  width: 160px;
+  border: 2px solid var(--Mint);
+  border-radius: 20px;
+  font-size: 18px;
+  color: var(--Mint);
+  display: inline-block;
+  text-decoration: none;
+  line-height: 80px;
+  box-sizing: border-box;
+  margin-top: 60px;
+  margin-right: 100px;
+}
+
+.signin-btn {
+  width: 160px;
+  line-height: 80px;
+  border: 2px solid var(--Pink);
+  border-radius: 20px;
+  font-size: 18px;
+  color: var(--Pink);
+}
+
+/****************************** signup start **********************************/
+.signup-container {
+  width: 800px;
+  /* height: 800px; */
+  background-color: #000;
+  border-radius: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  margin: 0 auto;
+  text-align: center;
+  color: #fff;
+}
+
+.signup-title {
+  font-size: 60px;
+  font-weight: 300;
+  padding-top: 80px;
+  margin-bottom: 80px;
+}
+
+.signup_info {
+  width: 613px;
+  font-size: 18px;
+  margin: 0 auto;
+}
+
+.signup_info ~ .input-container {
+  margin-bottom: 80px;
+}
+
+.submit-btn {
+  width: 160px;
+  border: 2px solid var(--Primary);
+  border-radius: 20px;
+  font-size: 18px;
+  color: var(--Pink);
+  display: inline-block;
+  text-decoration: none;
+  line-height: 80px;
+  box-sizing: border-box;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.error {
+  font-size: 14px;
+  color: red;
+  margin-top: 10px;
+}
+/****************************** rank **********************************/
+.rank-title {
+  font-size: 80px;
+  color: #fff;
+  text-align: center;
+  background-color: #666666;
+}
+
+.rank-title span {
+  color: #d856a7;
+}
+
+.rank-container {
+  width: 1270px;
+  height: 526px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 24px;
+  background-color: #666666;
+  color: #fff;
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  border-radius: 0px 0px 20px 20px;
+  overflow: scroll;
+}
+
+.rank-table {
+  width: 100%;
+  padding: 40px 145px;
+}
+
+.rank-container-head tr th {
+  padding-bottom: 32px;
+}
+
+.rank-container-body tr td {
+  padding-bottom: 24px;
+}
+
+.rank-first {
+  font-size: 32px;
+  color: #ffd233;
+}
+/******************************* matching card *******************************/
+.game-title {
+  font-size: 80px;
+  color: #fff;
+  background-color: #666666;
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.card-container {
+  width: 1020px;
+  margin: 0 auto 40px auto;
+}
+
+.cards {
+  width: 150px;
+  height: 150px;
+  color: #fff;
+  font-size: 60px;
+  line-height: 150px;
+  background-color: #5eccc7;
+  text-align: center;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+.reset-button {
+  color: #ffd233;
+  font-size: 24px;
+  width: 160px;
+  height: 80px;
+  margin: 0 auto;
+  display: inherit;
 }
