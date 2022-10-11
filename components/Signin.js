@@ -10,13 +10,13 @@ class Signin extends Component {
                 <div class="input-container">
                   <label for="signin-userid">ID:</label>
                   <input type="text" id="signin-userid" name="userid" required autocomplete="off" />
-                  <div class="error"></div>
                 </div>
+                <div class="hidden error">THERE IS NO REGISTERED ID.</div>
                 <div class="input-container">
                   <label for="signin-password">Password:</label>
                   <input type="password" id="signin-password" name="password" required autocomplete="off" />
-                  <div class="error"></div>
                 </div>
+                <div class="hidden error">PASSWORDS DO NOT MATCH.</div>
                 <a class="signup-btn" href="/">SIGN UP</a>
                 <button class="signin-btn">LOGIN</button>
               </form>
