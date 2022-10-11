@@ -1,24 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 body {
   font-family: 'Press Start 2P', cursive;
   font-size: 24px;
 }
-button{
+button {
   border: 0;
   background-color: transparent;
 }
-:root{
-  --Primary : #B10D8D;
-  --Second:#FFD233;
-  --Gray:#666666;
-  --White:#D9D9D9;
-  --Mint:#5ECCC7;
-  --Pink:#D856A7;
+:root {
+  --Primary: #b10d8d;
+  --Second: #ffd233;
+  --Gray: #666666;
+  --White: #d9d9d9;
+  --Mint: #5eccc7;
+  --Pink: #d856a7;
 }
 
 /* carousel */
+.carousel-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .carousel {
   display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
   width: 1246px;
   height: 420px;
   overflow: hidden;
@@ -26,33 +35,47 @@ button{
   position: relative;
 }
 .carousel-item {
-  width: 1046px;
-  height: 420px;
+  min-width: 1246px;
   padding: 60px;
   border: 2px solid red;
 }
 .carousel-item > h2 {
+  width: 700px;
   margin-bottom: 60px;
   /* font-size: 80px; */
 }
-.carousel-item-text{
+.carousel-item-text {
   display: flex;
+  column-gap: 20px;
 }
 .difficulty {
   color: var(--Second);
   font-size: 100px;
 }
-.carousel-play-pause{
+.carousel-play-pause {
   position: absolute;
   top: 24px;
-  right:24px;
+  right: 24px;
   width: 48px;
   height: 48px;
 }
 .carousel-description {
+  width: 700px;
   font-size: 32px;
 }
-.carousel-play-pause > span{
+.carousel-play-pause > span {
   font-size: 48px;
-  color:var(--White)
+  color: var(--White);
+}
+.carousel-next {
+  position: absolute;
+  top: 182px;
+  right: -40px;
+  z-index: 100;
+}
+.carousel-prev {
+  position: absolute;
+  top: 182px;
+  left: 0px;
+  transform: rotate(180deg);
 }
