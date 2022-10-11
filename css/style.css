@@ -4,6 +4,7 @@ body {
   font-family: 'Press Start 2P', cursive;
   font-size: 24px;
   text-transform: uppercase;
+  color: var(--White);
 }
 button {
   border: 0;
@@ -34,7 +35,26 @@ button {
   font-size: 40px;
 }
 a {
-  color: black;
+  color: var(--White);
   text-decoration: none;
 }
 
+/**************** game-card ****************/
+.game-card {
+  text-align: center;
+  background-image: linear-gradient(to bottom, #f0f0f0, transparent);
+  width: 1246px;
+  border-radius: 20px;
+}
+.game-card-heading {
+  margin-top: 40px;
+  padding: 96px 0;
+}
+.game-card-play {
+  margin-top: 80px;
+  font-size: 80px;
+  border: 3px solid var(--Primary);
+  color: var(--Primary);
+  border-radius: 40px;
+  padding: 32px;
+}
