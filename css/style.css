@@ -79,3 +79,67 @@ button {
   left: 0px;
   transform: rotate(180deg);
 }
+
+/****************************** signin **********************************/
+.signin-container {
+  width: 800px;
+  height: 654px;
+  background-color: #000;
+  border-radius: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  margin: 0 auto;
+  text-align: center;
+  color: #fff;
+}
+
+.input-container {
+  display: flex;
+  border-bottom: 2px solid #fff;
+}
+
+.input-container > label {
+  line-height: 80px;
+  margin-left: 30px;
+}
+
+.input-container > input {
+  line-height: 80px;
+  background: none;
+  border: none;
+}
+
+.signin-title {
+  font-size: 60px;
+  font-weight: 300;
+  padding-top: 80px;
+  margin-bottom: 80px;
+}
+
+.signin_info {
+  width: 613px;
+  font-size: 18px;
+  margin: 0 auto;
+}
+
+.signup-btn {
+  width: 160px;
+  border: 2px solid var(--Mint);
+  border-radius: 20px;
+  font-size: 18px;
+  color: var(--Mint);
+  display: inline-block;
+  text-decoration: none;
+  line-height: 80px;
+  box-sizing: border-box;
+  margin-top: 80px;
+  margin-right: 100px;
+}
+
+.signin-btn {
+  width: 160px;
+  line-height: 80px;
+  border: 2px solid var(--Pink);
+  border-radius: 20px;
+  font-size: 18px;
+  color: var(--Pink);
+}
