@@ -115,7 +115,8 @@ a {
   width: 100%;
   font-size: 18px;
   margin-top: 160px;
-  margin-bottom: 20px;
+  position: absolute;
+  bottom: 20px;
 }
 .footer-inner {
   display: flex;
