@@ -58,3 +58,31 @@ a {
   border-radius: 40px;
   padding: 32px;
 }
+
+/**************** contributor ****************/
+.contributor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #ffffff;
+}
+.contributor-heading {
+  color: var(--Second);
+  margin-bottom: 120px;
+}
+.profile {
+  display: flex;
+  column-gap: 80px;
+  margin-bottom: 48px;
+}
+.profile > img {
+  width: 230px;
+  height: 230px;
+  border: 5px solid var(--Gray);
+  border-radius: 50%;
+}
+
+.profile-description {
+  width: 930px;
+  border: 2px solid #ffffff;
+}

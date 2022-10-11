@@ -1,5 +1,5 @@
 import Component from './components/Component.js';
-import { Header } from './components/index.js';
+import { Header,Contributor, GameCard } from './components/index.js';
 
 class App extends Component {
   constructor(props) {
@@ -10,6 +10,8 @@ class App extends Component {
   domStr() {
     return `
       ${new Header().domStr()}
+      ${new GameCard().domStr()}
+      ${new Contributor().domStr()}
     `;
   }
 
