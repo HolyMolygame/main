@@ -1,5 +1,5 @@
 import Component from './components/Component.js';
-import { Header, Contributor, GameCard, Footer, MatchingCards, Signin, Rank, Signup } from './components/index.js';
+import { Header, Home, Footer, MatchingCards, Signin, Rank, Signup } from './components/index.js';
 
 let gameplay = false;
 let signin = false;
@@ -87,8 +87,7 @@ class App extends Component {
     }
     return `
       ${new Header().domStr()}
-      ${new GameCard().domStr()}
-      ${new Contributor().domStr()}
+     ${new Home().domStr()}
       ${new Footer().domStr()}
     `;
   }

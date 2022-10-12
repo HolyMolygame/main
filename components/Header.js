@@ -30,7 +30,8 @@ class Header extends Component {
       this.createEvent({
         type: 'click',
         selector: '.header-rank',
-        handler: () => {
+        handler: e => {
+          console.log(e.target);
           window.dispatchEvent(rank);
         },
       }),
