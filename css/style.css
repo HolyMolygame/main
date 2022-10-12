@@ -33,6 +33,10 @@ button {
   margin-left: auto;
   margin-right: auto;
 }
+.header > h1,
+li {
+  cursor: pointer;
+}
 .header-list {
   display: flex;
   align-items: center;
