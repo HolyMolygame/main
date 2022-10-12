@@ -71,6 +71,9 @@ a {
   border: 3px solid var(--Primary);
   color: var(--Primary);
   border-radius: 40px;
+}
+.game-card-play a {
+  display: block;
   padding: 32px;
 }
 .game-card-play:hover {

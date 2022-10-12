@@ -1,24 +1,45 @@
 import Component from './Component.js';
 
-const signup = new CustomEvent('signup', {
-  detail: true,
-});
 class Signin extends Component {
   addEvent() {
-    //   this.createEvent({
-    //     type:'click',
-    //     selector:'.signin-btn',
-    //     handler: e => {
-    //       // input 값 유효성 검사
-    //       // 이벤트 생성하기 전에 login 상태관리부터 선행되어야 할듯
-    //     }
-    //   })
     return [
+      // 로그인 버튼 클릭 시는 로그인 회원가입 상태 관리 먼저 하고 난 후 등록
+      // this.createEvent({
+      //   type: 'click',
+      //   selector: '.signin-btn',
+      //   handler: e => {
+      //     e.preventDefault();
+
+      //     const path = e.target.getAttribute('href');
+
+      //     if (window.location.pathname === path) return;
+
+      //     window.history.pushState(null, null, path);
+
+      //     window.dispatchEvent(
+      //       new CustomEvent('signin', {
+      //         detail: path,
+      //       })
+      //     );
+      //   },
+      // }),
       this.createEvent({
         type: 'click',
         selector: '.signup-btn',
-        handler: () => {
-          window.dispatchEvent(signup);
+        handler: e => {
+          e.preventDefault();
+
+          const path = e.target.getAttribute('href');
+
+          if (window.location.pathname === path) return;
+
+          window.history.pushState(null, null, path);
+
+          window.dispatchEvent(
+            new CustomEvent('signup', {
+              detail: path,
+            })
+          );
         },
       }),
     ];
@@ -38,7 +59,7 @@ class Signin extends Component {
                   <input type="password" id="signin-password" name="password" required autocomplete="off" />
                 </div>
                 <div class="hidden error">PASSWORDS DO NOT MATCH.</div>
-                <button type="button" class="signup-btn">SIGN UP</button>
+                <a href="/signup" class="signup-btn">SIGN UP</a>
                 <button class="signin-btn">LOGIN</button>
               </form>
             </div>`;

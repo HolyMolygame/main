@@ -1,38 +1,63 @@
 import Component from './Component.js';
 
-const signin = new CustomEvent('signin', {
-  detail: true,
-});
-const main = new CustomEvent('main', {
-  detail: true,
-});
-const rank = new CustomEvent('rank', {
-  detail: true,
-});
-
 class Header extends Component {
   addEvent() {
     return [
       this.createEvent({
         type: 'click',
-        selector: '.header-signin',
-        handler: () => {
-          window.dispatchEvent(signin);
-        },
-      }),
-      this.createEvent({
-        type: 'click',
         selector: '.header-logo',
-        handler: () => {
-          window.dispatchEvent(main);
+        handler: e => {
+          e.preventDefault();
+
+          const path = e.target.getAttribute('href');
+
+          if (window.location.pathname === path) return;
+
+          window.history.pushState(null, null, path);
+
+          window.dispatchEvent(
+            new CustomEvent('home', {
+              detail: path,
+            })
+          );
         },
       }),
       this.createEvent({
         type: 'click',
         selector: '.header-rank',
         handler: e => {
-          console.log(e.target);
-          window.dispatchEvent(rank);
+          e.preventDefault();
+
+          const path = e.target.getAttribute('href');
+
+          if (window.location.pathname === path) return;
+
+          window.history.pushState(null, null, path);
+
+          window.dispatchEvent(
+            new CustomEvent('rank', {
+              detail: path,
+            })
+          );
+        },
+      }),
+      this.createEvent({
+        type: 'click',
+        selector: '.header-signin',
+        handler: e => {
+          e.preventDefault();
+
+          const path = e.target.getAttribute('href');
+
+          if (window.location.pathname === path) return;
+
+          window.history.pushState(null, null, path);
+
+          window.dispatchEvent(
+            new CustomEvent('signin', {
+              detail: path,
+            })
+          );
         },
       }),
     ];
@@ -41,10 +66,10 @@ class Header extends Component {
   domStr() {
     return `
     <div class="header">
-      <h1 class="header-logo">HOLY MOLY</h1>
+      <h1 class="header-logo"><a href="/">HOLY MOLY</a></h1>
       <ul class="header-list">
-        <li class="header-rank">RANK</li>
-        <li class="header-signin">SIGNIN/SIGNUP</li>
+        <li class="header-rank"><a href="/rank">RANK</a></li>
+        <li class="header-signin"><a href="/signin">SIGNIN/SIGNUP</a></li>
       </ul>
     </div>
     `;

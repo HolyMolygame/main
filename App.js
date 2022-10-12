@@ -1,93 +1,100 @@
 import Component from './components/Component.js';
-import { Header, Home, Footer, MatchingCards, Signin, Rank, Signup } from './components/index.js';
+import Home from './components/Home.js';
+import { Header, Footer, MatchingCards, Signin, Rank, Signup } from './components/index.js';
 
-let gameplay = false;
-let signin = false;
-let signup = false;
-let rank = false;
+let Page = Home;
+
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      routes: [
+        { path: '/', component: Home },
+        { path: '/rank', component: Rank },
+        { path: '/signin', component: Signin },
+        { path: '/signup', component: Signup },
+        { path: '/matching', component: MatchingCards },
+      ],
+    };
   }
 
   addEvent() {
     return [
       this.createEvent({
-        type: 'gameplay',
+        type: 'home',
         selector: '',
         handler: e => {
-          if (e.detail) {
-            gameplay = true;
-          }
-        },
-      }),
-      this.createEvent({
-        type: 'signin',
-        selector: '',
-        handler: e => {
-          if (e.detail) {
-            signin = true;
-          }
+          const _path = e.detail ?? window.location.pathname;
+
+          Page = this.state.routes.find(route => route.path === _path)?.component;
         },
       }),
       this.createEvent({
         type: 'rank',
         selector: '',
         handler: e => {
-          if (e.detail) {
-            rank = true;
-          }
+          const _path = e.detail ?? window.location.pathname;
+
+          Page = this.state.routes.find(route => route.path === _path)?.component;
+        },
+      }),
+      this.createEvent({
+        type: 'gameplay',
+        selector: '',
+        handler: e => {
+          const _path = e.detail ?? window.location.pathname;
+
+          Page = this.state.routes.find(route => route.path === _path)?.component;
+        },
+      }),
+      this.createEvent({
+        type: 'signin',
+        selector: '',
+        handler: e => {
+          const _path = e.detail ?? window.location.pathname;
+
+          Page = this.state.routes.find(route => route.path === _path)?.component;
         },
       }),
       this.createEvent({
         type: 'signup',
         selector: '',
         handler: e => {
-          if (e.detail) {
-            signup = true;
-          }
+          const _path = e.detail ?? window.location.pathname;
+
+          Page = this.state.routes.find(route => route.path === _path)?.component;
+        },
+      }),
+      this.createEvent({
+        type: 'popstate',
+        selector: '',
+        handler: e => {
+          const _path = e.detail ?? window.location.pathname;
+
+          Page = this.state.routes.find(route => route.path === _path)?.component;
         },
       }),
     ];
   }
 
+  addPath(target, event) {
+    const path = target.getAttribute('href');
+
+    if (window.location.pathname === path) return;
+
+    window.history.pushState(null, null, path);
+
+    window.dispatchEvent(
+      new CustomEvent(event, {
+        detail: path,
+      })
+    );
+  }
+
   domStr() {
-    if (gameplay) {
-      gameplay = false;
-      return `
-      ${new Header().domStr()}
-      ${new MatchingCards().domStr()}
-      ${new Footer().domStr()}
-      `;
-    }
-    if (signin) {
-      signin = false;
-      return `
-      ${new Header().domStr()}
-      ${new Signin().domStr()}
-      ${new Footer().domStr()}
-      `;
-    }
-    if (signup) {
-      signup = false;
-      return `
-      ${new Header().domStr()}
-      ${new Signup().domStr()}
-      ${new Footer().domStr()}
-      `;
-    }
-    if (rank) {
-      rank = false;
-      return `
-      ${new Header().domStr()}
-      ${new Rank().domStr()}
-      ${new Footer().domStr()}
-      `;
-    }
     return `
       ${new Header().domStr()}
-     ${new Home().domStr()}
+      ${new Page().domStr()}
       ${new Footer().domStr()}
     `;
   }
