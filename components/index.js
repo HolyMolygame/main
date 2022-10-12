@@ -6,5 +6,6 @@ import Signin from './Signin.js';
 import Signup from './Signup.js';
 import Rank from './Rank.js';
 import GameCard from './GameCard.js';
+import Home from './Home.js';
 
-export { Header, Footer, Rank, Signin, Signup, GameCard, MatchingCards, Contributor };
+export { Header, Footer, Rank, Signin, Signup, GameCard, MatchingCards, Contributor, Home };

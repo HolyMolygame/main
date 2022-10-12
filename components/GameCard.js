@@ -1,9 +1,21 @@
 import Component from './Component.js';
 
+const custom = new CustomEvent('gameplay', {
+  detail: true,
+});
+
 class GameCard extends Component {
-  // addEvent() {
-  //   return;
-  // }
+  addEvent() {
+    return [
+      this.createEvent({
+        type: 'click',
+        selector: '.game-card-play',
+        handler: () => {
+          window.dispatchEvent(custom);
+        },
+      }),
+    ];
+  }
 
   domStr() {
     return `
