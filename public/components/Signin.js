@@ -28,13 +28,11 @@ class Signin extends Component {
           console.log(payload);
 
           try {
-            const { userid, password } = await axios.post('/signin', payload);
-            console.log('Login Success');
-            console.log(userid);
-            console.log(password);
+            const { data: userid } = await axios.post('/signin', payload);
+            console.log('😀 LOGIN SUCCESS!');
             if (userid) this.setState({ path: '/' });
           } catch (e) {
-            console.log('Login Failure..');
+            console.log('😱 LOGIN FAILURE..');
           }
         },
       }),
