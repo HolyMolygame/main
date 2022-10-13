@@ -6,7 +6,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      path: '/',
+      path: window.location.pathname,
       routes: [
         { path: '/', component: Home },
         { path: '/rank', component: Rank },
@@ -26,13 +26,6 @@ class App extends Component {
           this.setState({ path: window.location.pathname });
         },
       },
-      {
-        type: 'DOMContentLoaded',
-        selector: '',
-        handler: () => {
-          window.history.pushState(null, null, '/');
-        },
-      },
     ];
   }
 
@@ -43,7 +36,6 @@ class App extends Component {
   }
 
   domStr() {
-    // window.history.pushState(null, null, this.state.path);
     const Page = this.state.routes.find(route => route.path === this.state.path)?.component;
     return `
       ${new Header({ navigate: this.navigate.bind(this) }).domStr()}
