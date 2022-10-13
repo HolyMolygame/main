@@ -20,7 +20,6 @@ class Header extends Component {
           e.preventDefault();
           if (!e.target.closest('.header-rank a')) return;
           const path = e.target.closest('.header-rank a').getAttribute('href');
-          console.log(path);
           this.props.navigate(path);
         },
       }),

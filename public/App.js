@@ -27,10 +27,10 @@ class App extends Component {
         },
       },
       {
-        type: 'onbeforeunload',
+        type: 'DOMContentLoaded',
         selector: '',
         handler: () => {
-          this.setState({ path: '/' });
+          window.history.pushState(null, null, '/');
         },
       },
     ];
