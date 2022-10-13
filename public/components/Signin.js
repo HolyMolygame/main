@@ -1,3 +1,4 @@
+/* eslint-disable no-sequences */
 import Component from './Component.js';
 
 class Signin extends Component {
@@ -13,13 +14,37 @@ class Signin extends Component {
           this.props.navigate(path);
         },
       }),
+      this.createEvent({
+        type: 'submit',
+        selector: '.signin_info',
+        handler: async e => {
+          e.preventDefault();
+
+          const payload = [...new FormData(document.querySelector('.signin_info'))].reduce(
+            // eslint-disable-next-line no-return-assign
+            (obj, [key, value]) => ((obj[key] = value), obj),
+            {}
+          );
+          console.log(payload);
+
+          try {
+            const { userid, password } = await axios.post('/signin', payload);
+            console.log('Login Success');
+            console.log(userid);
+            console.log(password);
+            if (userid) this.setState({ path: '/' });
+          } catch (e) {
+            console.log('Login Failure..');
+          }
+        },
+      }),
     ];
   }
 
   domStr() {
     return `<div class="signin-container">
               <div class="signin-title">SIGN IN</div>
-              <form class="form signin_info" novalidate>
+              <form class="form signin_info" action="/signin" method="POST" novalidate>
                 <div class="input-container">
                   <label for="signin-userid">ID:</label>
                   <input type="text" id="signin-userid" name="userid" required autocomplete="off" />

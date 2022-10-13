@@ -8,7 +8,7 @@ class Header extends Component {
         selector: '.header-logo',
         handler: e => {
           e.preventDefault();
-          if (!e.target.closest('.header-logo a')) return;
+
           const path = e.target.closest('.header-logo a').getAttribute('href');
           this.props.navigate(path);
         },
@@ -18,7 +18,7 @@ class Header extends Component {
         selector: '.header-rank',
         handler: e => {
           e.preventDefault();
-          if (!e.target.closest('.header-rank a')) return;
+
           const path = e.target.closest('.header-rank a').getAttribute('href');
           this.props.navigate(path);
         },
@@ -28,7 +28,7 @@ class Header extends Component {
         selector: '.header-signin',
         handler: e => {
           e.preventDefault();
-          if (!e.target.closest('.header-signin a')) return;
+
           const path = e.target.closest('.header-signin a').getAttribute('href');
           this.props.navigate(path);
         },

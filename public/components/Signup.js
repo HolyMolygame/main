@@ -6,7 +6,7 @@ class Signup extends Component {
   domStr() {
     return `<div class="signup-container">
               <div class="signup-title">SIGN UP</div>
-              <form class="form signup_info" novalidate>
+              <form class="form signup_info" action="/signup" method="POST" novalidate>
                 <div class="input-container">
                   <label for="signup-userid">NICKNAME:</label>
                   <input type="text" id="signup-userid" name="userid" required autocomplete="off" />

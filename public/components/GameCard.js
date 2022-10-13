@@ -8,7 +8,7 @@ class GameCard extends Component {
         selector: '.game-card-play',
         handler: e => {
           e.preventDefault();
-          if (!e.target.closest('.game-card-play a')) return;
+
           const path = e.target.getAttribute('href');
           this.props.navigate(path);
         },
