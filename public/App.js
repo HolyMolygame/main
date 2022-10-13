@@ -18,16 +18,25 @@ class App extends Component {
   }
 
   addEvent() {
-    return [];
+    return [
+      {
+        type: 'popstate',
+        selector: '',
+        handler: () => {
+          this.setState({ path: window.location.pathname });
+        },
+      },
+    ];
   }
 
   navigate(path) {
-    window.history.pushState(null, null, path);
     this.setState({ path });
   }
 
   domStr() {
     const Page = this.state.routes.find(route => route.path === this.state.path)?.component;
+    window.history.pushState(null, null, this.state.path);
+    console.log('render 발생:', window.history.length);
     return `
       ${new Header({ navigate: this.navigate.bind(this) }).domStr()}
       ${new Page({ navigate: this.navigate.bind(this) }).domStr()}
