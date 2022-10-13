@@ -7,6 +7,9 @@ class App extends Component {
     super(props);
     this.state = {
       path: window.location.pathname,
+      shuffledNum: this.shuffle(),
+      openCard: [],
+      completedCard: [],
       routes: [
         { path: '/', component: Home },
         { path: '/rank', component: Rank },
@@ -35,11 +38,25 @@ class App extends Component {
     this.setState({ path });
   }
 
+  shuffle() {
+    const copyArray = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9];
+    for (let index = copyArray.length - 1; index > 0; index--) {
+      const randomPosition = Math.floor(Math.random() * (index + 1));
+
+      [copyArray[index], copyArray[randomPosition]] = [copyArray[randomPosition], copyArray[index]];
+    }
+    return copyArray;
+  }
+
   domStr() {
     const Page = this.state.routes.find(route => route.path === this.state.path)?.component;
     return `
       ${new Header({ navigate: this.navigate.bind(this) }).domStr()}
-      ${new Page({ navigate: this.navigate.bind(this) }).domStr()}
+      ${new Page({
+        ...this.state,
+        navigate: this.navigate.bind(this),
+        checkCard: this.checkCard.bind(this),
+      }).domStr()}
       ${new Footer().domStr()}
     `;
   }
@@ -47,6 +64,10 @@ class App extends Component {
   // getNextId() {
   //   return Math.max(0, ...this.state.todos.flatMap(todo => todo.id)) + 1;
   // }
+
+  checkCard(target) {
+    this.setState({ openCard: [...this.state.openCard, target] });
+  }
 }
 
 export default App;
