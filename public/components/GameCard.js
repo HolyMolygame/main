@@ -8,18 +8,9 @@ class GameCard extends Component {
         selector: '.game-card-play',
         handler: e => {
           e.preventDefault();
-
+          if (!e.target.closest('.game-card-play a')) return;
           const path = e.target.getAttribute('href');
-
-          if (window.location.pathname === path) return;
-
-          window.history.pushState(null, null, path);
-
-          window.dispatchEvent(
-            new CustomEvent('gameplay', {
-              detail: path,
-            })
-          );
+          this.props.navigate(path);
         },
       }),
     ];

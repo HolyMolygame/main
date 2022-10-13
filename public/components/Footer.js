@@ -1,10 +1,6 @@
 import Component from './Component.js';
 
 class Footer extends Component {
-  // addEvent() {
-  //   return;
-  // }
-
   domStr() {
     return `
     <div class="footer-outer">

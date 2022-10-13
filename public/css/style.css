@@ -141,7 +141,7 @@ a {
 .signin-container {
   width: 800px;
   height: 654px;
-  background-color: #000;
+  /* background-color: #000; */
   border-radius: 20px;
   border: 3px solid rgba(255, 255, 255, 0.5);
   margin: 0 auto;
@@ -163,6 +163,7 @@ a {
   line-height: 80px;
   background: none;
   border: none;
+  color: #fff;
 }
 
 .signin-title {

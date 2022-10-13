@@ -2,12 +2,11 @@ import Component from './components/Component.js';
 import Home from './components/Home.js';
 import { Header, Footer, MatchingCards, Signin, Rank, Signup } from './components/index.js';
 
-let Page = Home;
-
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      path: '/',
       routes: [
         { path: '/', component: Home },
         { path: '/rank', component: Rank },
@@ -19,86 +18,22 @@ class App extends Component {
   }
 
   addEvent() {
-    return [
-      this.createEvent({
-        type: 'home',
-        selector: '',
-        handler: e => {
-          const _path = e.detail ?? window.location.pathname;
-
-          Page = this.state.routes.find(route => route.path === _path)?.component;
-        },
-      }),
-      this.createEvent({
-        type: 'rank',
-        selector: '',
-        handler: e => {
-          const _path = e.detail ?? window.location.pathname;
-
-          Page = this.state.routes.find(route => route.path === _path)?.component;
-        },
-      }),
-      this.createEvent({
-        type: 'gameplay',
-        selector: '',
-        handler: e => {
-          const _path = e.detail ?? window.location.pathname;
-
-          Page = this.state.routes.find(route => route.path === _path)?.component;
-        },
-      }),
-      this.createEvent({
-        type: 'signin',
-        selector: '',
-        handler: e => {
-          const _path = e.detail ?? window.location.pathname;
-
-          Page = this.state.routes.find(route => route.path === _path)?.component;
-        },
-      }),
-      this.createEvent({
-        type: 'signup',
-        selector: '',
-        handler: e => {
-          const _path = e.detail ?? window.location.pathname;
-
-          Page = this.state.routes.find(route => route.path === _path)?.component;
-        },
-      }),
-      this.createEvent({
-        type: 'popstate',
-        selector: '',
-        handler: e => {
-          const _path = e.detail ?? window.location.pathname;
-
-          Page = this.state.routes.find(route => route.path === _path)?.component;
-        },
-      }),
-    ];
+    return [];
   }
 
-  addPath(target, event) {
-    const path = target.getAttribute('href');
-
-    if (window.location.pathname === path) return;
-
+  navigate(path) {
     window.history.pushState(null, null, path);
-
-    window.dispatchEvent(
-      new CustomEvent(event, {
-        detail: path,
-      })
-    );
+    this.setState({ path });
   }
 
   domStr() {
+    const Page = this.state.routes.find(route => route.path === this.state.path)?.component;
     return `
-      ${new Header().domStr()}
-      ${new Page().domStr()}
+      ${new Header({ navigate: this.navigate.bind(this) }).domStr()}
+      ${new Page({ navigate: this.navigate.bind(this) }).domStr()}
       ${new Footer().domStr()}
     `;
   }
-
   // setState 사용해서 변경할 할수
   // getNextId() {
   //   return Math.max(0, ...this.state.todos.flatMap(todo => todo.id)) + 1;

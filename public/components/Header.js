@@ -8,18 +8,9 @@ class Header extends Component {
         selector: '.header-logo',
         handler: e => {
           e.preventDefault();
-
-          const path = e.target.getAttribute('href');
-
-          if (window.location.pathname === path) return;
-
-          window.history.pushState(null, null, path);
-
-          window.dispatchEvent(
-            new CustomEvent('home', {
-              detail: path,
-            })
-          );
+          if (!e.target.closest('.header-logo a')) return;
+          const path = e.target.closest('.header-logo a').getAttribute('href');
+          this.props.navigate(path);
         },
       }),
       this.createEvent({
@@ -27,18 +18,9 @@ class Header extends Component {
         selector: '.header-rank',
         handler: e => {
           e.preventDefault();
-
-          const path = e.target.getAttribute('href');
-
-          if (window.location.pathname === path) return;
-
-          window.history.pushState(null, null, path);
-
-          window.dispatchEvent(
-            new CustomEvent('rank', {
-              detail: path,
-            })
-          );
+          if (!e.target.closest('.header-rank a')) return;
+          const path = e.target.closest('.header-rank a').getAttribute('href');
+          this.props.navigate(path);
         },
       }),
       this.createEvent({
@@ -46,18 +28,9 @@ class Header extends Component {
         selector: '.header-signin',
         handler: e => {
           e.preventDefault();
-
-          const path = e.target.getAttribute('href');
-
-          if (window.location.pathname === path) return;
-
-          window.history.pushState(null, null, path);
-
-          window.dispatchEvent(
-            new CustomEvent('signin', {
-              detail: path,
-            })
-          );
+          if (!e.target.closest('.header-signin a')) return;
+          const path = e.target.closest('.header-signin a').getAttribute('href');
+          this.props.navigate(path);
         },
       }),
     ];

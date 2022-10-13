@@ -3,10 +3,6 @@ import Contributor from './Contributor.js';
 import GameCard from './GameCard.js';
 
 class Home extends Component {
-  addEvent() {
-    return [];
-  }
-
   domStr() {
     return `
       <div class="home-container">
