@@ -1,4 +1,4 @@
-import render from '../../render/index.js';
+import render from '../render/index.js';
 
 let events = [];
 

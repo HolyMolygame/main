@@ -61,6 +61,7 @@ let $root = null;
 const render = (Component, $rootContainer) => {
   if (Component) rootComponent = new Component();
   if ($rootContainer) $root = $rootContainer;
+
   const $virtual = new DOMParser().parseFromString(rootComponent.domStr(), 'text/html').body;
 
   diff($virtual, $root);
