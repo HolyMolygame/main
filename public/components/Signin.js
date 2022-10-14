@@ -25,14 +25,16 @@ class Signin extends Component {
             (obj, [key, value]) => ((obj[key] = value), obj),
             {}
           );
-          console.log(payload);
 
           try {
-            const { data: userid } = await axios.post('/signin', payload);
+            const { data: user } = await axios.post('/signin', payload);
+            console.log(user.nickname);
+            console.log(user);
             console.log('😀 LOGIN SUCCESS!');
-            if (userid) this.setState({ path: '/' });
+            if (user) this.props.navigate('/', user);
           } catch (e) {
             console.log('😱 LOGIN FAILURE..');
+            document.querySelector('.error').classList.remove('hidden');
           }
         },
       }),
