@@ -2,14 +2,23 @@ import Component from './Component.js';
 
 let openCard = [];
 let matchedCard = [];
+let isStarted = false;
+let convertedTime = 0;
 class MatchingCards extends Component {
   addEvent() {
     return [
-      {
+      this.createEvent({
+        type: 'click',
+        selector: '.start-button',
+        handler: () => {
+          this.props.start();
+        },
+      }),
+      this.createEvent({
         type: 'click',
         selector: '.card-front',
         handler: e => {
-          if (openCard.length === 2) return;
+          if (openCard.length === 2 || !isStarted) return;
 
           this.props.checkCard(+e.target.closest('.cards').dataset.id);
           if (openCard.length === 2) {
@@ -23,7 +32,7 @@ class MatchingCards extends Component {
             }, 500);
           }
         },
-      },
+      }),
       this.createEvent({
         type: 'click',
         selector: '.reset-button',
@@ -38,6 +47,8 @@ class MatchingCards extends Component {
 
   domStr() {
     openCard = this.props.openCard;
+    isStarted = this.props.isStarted;
+    convertedTime = this.props.convertedTime;
 
     return `
     <div class="container">
@@ -58,7 +69,12 @@ class MatchingCards extends Component {
           )
           .join('')}
       </div>
-      <button class="reset-button">RESET</button>
+      <p class="result-message ${matchedCard.length === 18 ? '' : 'hidden'}">Congratulations!</p>
+      <p class="display">${convertedTime}</p>
+      <div class="active-button-container">
+        <button class="start-button">Start</button>
+        <button class="reset-button">RESET</button>
+      </div>
     </div>
     `;
   }

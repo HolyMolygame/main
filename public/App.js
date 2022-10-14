@@ -10,6 +10,10 @@ class App extends Component {
       shuffledNum: this.shuffle(),
       openCard: [],
       matchedCard: [],
+      isStarted: false,
+      elapsedTime: 0,
+      convertedTime: '00:00:00',
+      timeId: null,
       routes: [
         { path: '/', component: Home },
         { path: '/rank', component: Rank },
@@ -61,7 +65,41 @@ class App extends Component {
   }
 
   resetGame() {
-    this.setState({ openCard: [], matchedCard: [] });
+    clearInterval(this.state.timeId);
+    this.setState({
+      shuffledNum: this.shuffle(),
+      isStarted: false,
+      openCard: [],
+      matchedCard: [],
+      elapsedTime: 0,
+      convertedTime: '00:00:00',
+      timeId: null,
+    });
+  }
+
+  convertTime(time) {
+    const minutes = (Math.floor(time / 6000) + '').padStart(2, 0);
+    // const seconds = Math.floor((time % 6000) / 100) < 10 ? `0${Math.floor((time % 6000) / 100)}` : `${Math.floor((time % 6000) / 100)}`;
+    const seconds = (Math.floor((time % 6000) / 100) + '').padStart(2, 0);
+    // const ms = Math.floor(time % 6000) % 100 < 10 ? `0${Math.floor(time % 6000) % 100}` : `${Math.floor(time % 6000) % 100}`;
+    const ms = ((Math.floor(time % 6000) % 100) + '').padStart(2, 0);
+
+    return `${minutes}:${seconds}:${ms}`;
+  }
+
+  start() {
+    this.setState({
+      timeId: setInterval(() => {
+        this.setState({
+          elapsedTime: this.state.elapsedTime + 1,
+          convertedTime: this.convertTime(this.state.elapsedTime),
+        });
+        if (this.state.matchedCard.length === 18) {
+          clearInterval(this.state.timeId);
+        }
+      }, 10),
+      isStarted: true,
+    });
   }
 
   domStr() {
@@ -75,6 +113,7 @@ class App extends Component {
         matchCard: this.matchCard.bind(this),
         resetOpenedCard: this.resetOpenedCard.bind(this),
         resetGame: this.resetGame.bind(this),
+        start: this.start.bind(this),
       }).domStr()}
       ${new Footer().domStr()}
     `;

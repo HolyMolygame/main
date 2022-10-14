@@ -349,6 +349,19 @@ a {
   transform: rotateY(180deg);
 }
 
+.active-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.start-button {
+  color: #ffd233;
+  font-size: 24px;
+  width: 160px;
+  height: 80px;
+  margin: 0 auto;
+  display: inherit;
+}
 .reset-button {
   color: #ffd233;
   font-size: 24px;
@@ -356,4 +369,11 @@ a {
   height: 80px;
   margin: 0 auto;
   display: inherit;
+}
+.display {
+  text-align: center;
+  color: var(--Pink);
+}
+.result-message {
+  text-align: center;
 }
