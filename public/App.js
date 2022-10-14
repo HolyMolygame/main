@@ -9,7 +9,11 @@ class App extends Component {
       path: window.location.pathname,
       shuffledNum: this.shuffle(),
       openCard: [],
-      completedCard: [],
+      matchedCard: [],
+      isStarted: false,
+      elapsedTime: 0,
+      convertedTime: '00:00:00',
+      timeId: null,
       routes: [
         { path: '/', component: Home },
         { path: '/rank', component: Rank },
@@ -48,6 +52,56 @@ class App extends Component {
     return copyArray;
   }
 
+  checkCard(target) {
+    this.setState({ openCard: [...this.state.openCard, target] });
+  }
+
+  matchCard(target) {
+    this.setState({ matchedCard: [...this.state.matchedCard, ...target] });
+  }
+
+  resetOpenedCard() {
+    this.setState({ openCard: [] });
+  }
+
+  resetGame() {
+    clearInterval(this.state.timeId);
+    this.setState({
+      shuffledNum: this.shuffle(),
+      isStarted: false,
+      openCard: [],
+      matchedCard: [],
+      elapsedTime: 0,
+      convertedTime: '00:00:00',
+      timeId: null,
+    });
+  }
+
+  convertTime(time) {
+    const minutes = (Math.floor(time / 6000) + '').padStart(2, 0);
+    // const seconds = Math.floor((time % 6000) / 100) < 10 ? `0${Math.floor((time % 6000) / 100)}` : `${Math.floor((time % 6000) / 100)}`;
+    const seconds = (Math.floor((time % 6000) / 100) + '').padStart(2, 0);
+    // const ms = Math.floor(time % 6000) % 100 < 10 ? `0${Math.floor(time % 6000) % 100}` : `${Math.floor(time % 6000) % 100}`;
+    const ms = ((Math.floor(time % 6000) % 100) + '').padStart(2, 0);
+
+    return `${minutes}:${seconds}:${ms}`;
+  }
+
+  start() {
+    this.setState({
+      timeId: setInterval(() => {
+        this.setState({
+          elapsedTime: this.state.elapsedTime + 1,
+          convertedTime: this.convertTime(this.state.elapsedTime),
+        });
+        if (this.state.matchedCard.length === 18) {
+          clearInterval(this.state.timeId);
+        }
+      }, 10),
+      isStarted: true,
+    });
+  }
+
   domStr() {
     const Page = this.state.routes.find(route => route.path === this.state.path)?.component;
     return `
@@ -56,13 +110,13 @@ class App extends Component {
         ...this.state,
         navigate: this.navigate.bind(this),
         checkCard: this.checkCard.bind(this),
+        matchCard: this.matchCard.bind(this),
+        resetOpenedCard: this.resetOpenedCard.bind(this),
+        resetGame: this.resetGame.bind(this),
+        start: this.start.bind(this),
       }).domStr()}
       ${new Footer().domStr()}
     `;
-  }
-
-  checkCard(target) {
-    this.setState({ openCard: [...this.state.openCard, target] });
   }
 }
 
