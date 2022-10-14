@@ -48,7 +48,7 @@ class Header extends Component {
         <li class="header-rank"><a href="/rank">RANK</a></li>
         ${
           this.props.user
-            ? `<li><span style="color: orange; font-size: 30px;">${this.props.user.nickname}</span> WELCOME!</li>`
+            ? `<li><span style="color: orange; font-size: 30px;">${this.props.user}</span> WELCOME!</li>`
             : `<li class="header-signin"><a href="/signin">SIGNIN/SIGNUP</a></li>`
         }
       </ul>

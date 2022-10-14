@@ -30,6 +30,7 @@ class Signin extends Component {
             const { data: user } = await axios.post('/signin', payload);
             console.log('😀 LOGIN SUCCESS!');
             if (user) this.props.navigate('/', user);
+            localStorage.setItem('user', JSON.stringify(user));
           } catch (e) {
             console.log('😱 LOGIN FAILURE..');
             document.querySelector('.error').classList.remove('hidden');

@@ -70,7 +70,7 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
       httpOnly: true,
     });
 
-    res.send(user);
+    res.send(user.nickname);
   });
 
   app.get('/rank', auth, (req, res) => {

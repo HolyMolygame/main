@@ -34,6 +34,13 @@ class App extends Component {
           this.setState({ path: window.location.pathname });
         },
       },
+      {
+        type: 'DOMContentLoaded',
+        selector: '',
+        handler: () => {
+          this.setState({ user: JSON.parse(localStorage.getItem('user')) });
+        },
+      },
     ];
   }
 
