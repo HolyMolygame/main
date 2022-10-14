@@ -9,7 +9,7 @@ class App extends Component {
       path: window.location.pathname,
       shuffledNum: this.shuffle(),
       openCard: [],
-      completedCard: [],
+      matchedCard: [],
       routes: [
         { path: '/', component: Home },
         { path: '/rank', component: Rank },
@@ -48,6 +48,22 @@ class App extends Component {
     return copyArray;
   }
 
+  checkCard(target) {
+    this.setState({ openCard: [...this.state.openCard, target] });
+  }
+
+  matchCard(target) {
+    this.setState({ matchedCard: [...this.state.matchedCard, ...target] });
+  }
+
+  resetOpenedCard() {
+    this.setState({ openCard: [] });
+  }
+
+  resetGame() {
+    this.setState({ openCard: [], matchedCard: [] });
+  }
+
   domStr() {
     const Page = this.state.routes.find(route => route.path === this.state.path)?.component;
     return `
@@ -56,13 +72,12 @@ class App extends Component {
         ...this.state,
         navigate: this.navigate.bind(this),
         checkCard: this.checkCard.bind(this),
+        matchCard: this.matchCard.bind(this),
+        resetOpenedCard: this.resetOpenedCard.bind(this),
+        resetGame: this.resetGame.bind(this),
       }).domStr()}
       ${new Footer().domStr()}
     `;
-  }
-
-  checkCard(target) {
-    this.setState({ openCard: [...this.state.openCard, target] });
   }
 }
 
