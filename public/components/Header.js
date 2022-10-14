@@ -42,9 +42,11 @@ class Header extends Component {
       <h1 class="header-logo"><a href="/">HOLY MOLY</a></h1>
       <ul class="header-list">
         <li class="header-rank"><a href="/rank">RANK</a></li>
-        <li class="header-signin"><a href="/signin">${
-          this.props.user ? `환영합니다!${this.props.user.nickname}` : 'SIGNIN/SIGNUP'
-        }</a></li>
+        ${
+          this.props.user
+            ? `<li><span style="color: orange; font-size: 30px;">${this.props.user.nickname}</span> WELCOME!</li>`
+            : `<li class="header-signin"><a href="/signin">SIGNIN/SIGNUP</a></li>`
+        }
       </ul>
     </div>
     `;

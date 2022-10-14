@@ -15,7 +15,7 @@ app.use(cookieParser());
 const users = [
   { nickname: '이웅모', userid: 'ungmo2@gmail.com', password: '111111' },
   { nickname: 'test', userid: 'test@test.com', password: '123456' },
-  { nickname: '이채련', userid: 'a1', password: '111' },
+  { nickname: 'HEALTY', userid: 'a1', password: '111' },
 ];
 
 MongoClient.connect(process.env.DBURL, (err, client) => {
@@ -69,9 +69,7 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
       httpOnly: true,
     });
 
-    res.send({ user });
-
-    console.log(res);
+    res.send(user);
   });
 
   app.get('/', auth, (req, res) => {

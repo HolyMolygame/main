@@ -1,6 +1,18 @@
 import Component from './Component.js';
 
 class Footer extends Component {
+  addEvent() {
+    return [
+      this.createEvent({
+        type: 'click',
+        selector: '.footer-top-button',
+        handler: () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        },
+      }),
+    ];
+  }
+
   domStr() {
     return `
     <div class="footer-outer">
