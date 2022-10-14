@@ -41,7 +41,8 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
       console.error('😱 사용자 인증 실패..', e);
       console.log(accessToken);
       // 클라이언트로부터 토큰이 전달되지 않아 accessToken이 undefined이거나 토큰이 유효하지 않으면
-      return res.redirect('/signin');
+      // return res.redirect('/signin');
+      res.status(401).send({ error: '등록되지 않은 사용자입니다.' });
     }
   };
 
@@ -72,8 +73,9 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
     res.send(user);
   });
 
-  app.get('/', auth, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/index.html'));
+  app.get('/rank', auth, (req, res) => {
+    // res.sendFile(path.join(__dirname, 'public/index.html'));
+    res.send('로그인된 사용자입니다.');
   });
 
   app.get('*', (req, res) => {

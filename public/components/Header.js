@@ -16,11 +16,16 @@ class Header extends Component {
       this.createEvent({
         type: 'click',
         selector: '.header-rank',
-        handler: e => {
+        handler: async e => {
           e.preventDefault();
 
-          const path = e.target.closest('.header-rank a').getAttribute('href');
-          this.props.navigate(path);
+          try {
+            await axios.get('/rank');
+            const path = e.target.closest('.header-rank a').getAttribute('href');
+            this.props.navigate(path);
+          } catch {
+            alert('가입해라!!');
+          }
         },
       }),
       this.createEvent({
@@ -28,7 +33,6 @@ class Header extends Component {
         selector: '.header-signin',
         handler: e => {
           e.preventDefault();
-
           const path = e.target.closest('.header-signin a').getAttribute('href');
           this.props.navigate(path);
         },
@@ -54,3 +58,5 @@ class Header extends Component {
 }
 
 export default Header;
+
+// ${this.props.user ? `<li class="header-rank"><a href="/rank">RANK</a></li>` : `<li>RANK</li>`}
