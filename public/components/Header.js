@@ -18,14 +18,9 @@ class Header extends Component {
         selector: '.header-rank',
         handler: async e => {
           e.preventDefault();
-
-          try {
-            await axios.get('/rank');
-            const path = e.target.closest('.header-rank a').getAttribute('href');
-            this.props.navigate(path);
-          } catch {
-            alert('가입해라!!');
-          }
+          const path = e.target.closest('.header-rank a').getAttribute('href');
+          if (await this.guard(path)) this.props.navigate(path);
+          else this.props.navigate('/signin');
         },
       }),
       this.createEvent({

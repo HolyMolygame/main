@@ -74,7 +74,6 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
   });
 
   app.get('/rank', auth, (req, res) => {
-    // res.sendFile(path.join(__dirname, 'public/index.html'));
     res.send('로그인된 사용자입니다.');
   });
 

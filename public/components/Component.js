@@ -31,6 +31,16 @@ class Component {
     }
   }
 
+  // JWT 유무 확인 함수
+  async guard(path) {
+    try {
+      await axios.get(path);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
   domStr() {
     return ``;
   }
