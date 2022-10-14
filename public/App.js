@@ -60,10 +60,6 @@ class App extends Component {
       ${new Footer().domStr()}
     `;
   }
-  // setState 사용해서 변경할 할수
-  // getNextId() {
-  //   return Math.max(0, ...this.state.todos.flatMap(todo => todo.id)) + 1;
-  // }
 
   checkCard(target) {
     this.setState({ openCard: [...this.state.openCard, target] });
