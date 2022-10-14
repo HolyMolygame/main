@@ -6,6 +6,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      user: null,
       path: window.location.pathname,
       shuffledNum: this.shuffle(),
       openCard: [],
@@ -32,10 +33,11 @@ class App extends Component {
     ];
   }
 
-  navigate(path) {
+  navigate(path, user = null) {
     if (window.location.pathname === path) return;
     window.history.pushState(null, null, path);
-    this.setState({ path });
+    if (user) this.setState({ path, user });
+    else this.setState({ path });
   }
 
   shuffle() {
@@ -51,7 +53,7 @@ class App extends Component {
   domStr() {
     const Page = this.state.routes.find(route => route.path === this.state.path)?.component;
     return `
-      ${new Header({ navigate: this.navigate.bind(this) }).domStr()}
+      ${new Header({ ...this.state, navigate: this.navigate.bind(this) }).domStr()}
       ${new Page({
         ...this.state,
         navigate: this.navigate.bind(this),
@@ -60,10 +62,6 @@ class App extends Component {
       ${new Footer().domStr()}
     `;
   }
-  // setState 사용해서 변경할 할수
-  // getNextId() {
-  //   return Math.max(0, ...this.state.todos.flatMap(todo => todo.id)) + 1;
-  // }
 
   checkCard(target) {
     this.setState({ openCard: [...this.state.openCard, target] });
