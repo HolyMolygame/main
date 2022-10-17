@@ -2,13 +2,21 @@ import Component from './components/Component.js';
 import Home from './components/Home.js';
 import { Header, Footer, MatchingCards, Signin, Rank, Signup } from './components/index.js';
 
+const isSigned = async () => {
+  const { data } = await axios.get('/auth');
+  console.log(data.success);
+
+  return data.success;
+};
+
 const routes = [
   { path: '/', component: Home },
-  { path: '/rank', component: Rank },
+  { path: '/rank', component: Rank, guard: isSigned, redirectTo: Signin },
   { path: '/signin', component: Signin },
   { path: '/signup', component: Signup },
   { path: '/matching', component: MatchingCards },
 ];
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -25,16 +33,16 @@ class App extends Component {
     };
   }
 
-  // 어떤 이벤트가 일어났을때 window.location.pathname 으로 렌더링
-  // url 로 접근했을 떄
-  router(route) {
+  router(path = window.location.pathname) {
     // header 에서 클릭이벤트로 href 를 받아서 path에 담는다.
-    const path = route ?? window.location.pathname;
+    const route = routes.find(route => route.path === path);
 
-    // 같을 때는 return 해라.
-    if (window.location.pathname === path) window.history.replaceState(null, null, path);
-    // const result = routes.find(route => route.path === path)?.component;
-    this.setState({ Page: routes.find(route => route.path === path)?.component });
+    // change url path
+    (async () => {
+      !route.guard || (await route.guard())
+        ? this.setState({ Page: route.component })
+        : this.setState({ Page: route.redirectTo });
+    })();
   }
 
   addEvent() {

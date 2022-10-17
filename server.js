@@ -45,10 +45,35 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
     }
   };
 
+  const isSigned = (req, res) => {
+    /**
+     * 토큰이 리퀘스트의 Authorization 헤더를 통해 전달되면 req.headers.authorization으로 전달받고
+     * 토큰이 쿠키를 통해 전달되면 req.cookies.accessToken으로 전달받는다.
+     */
+    const accessToken = req.headers.authorization || req.cookies.accessToken;
+
+    try {
+      /**
+       * 서명이 유효하고 옵션인 expiration, audience, issuer 등이 유효한 경우 디코딩된 페이로드를 반환한다. 그렇지 않으면 에러가 발생한다.
+       * @see https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback
+       */
+      const decoded = jwt.verify(accessToken, process.env.JWT_SECRET_KEY);
+      console.log(`😀 사용자 인증 성공`, decoded);
+      res.send({ success: true });
+    } catch (e) {
+      console.error('😱 사용자 인증 실패..', e);
+      console.log(accessToken);
+      // 클라이언트로부터 토큰이 전달되지 않아 accessToken이 undefined이거나 토큰이 유효하지 않으면
+      res.send({ success: false });
+    }
+  };
+
   // auth route
   app.get('/signin', (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
   });
+
+  app.get('/auth', isSigned);
 
   app.post('/signin', (req, res) => {
     const { userid, password } = req.body; // request의 body에 담긴 내용을 사용하기위한 디스트럭쳐링할당

@@ -12,7 +12,6 @@ class Header extends Component {
           const path = e.target.closest('.header-logo a').getAttribute('href');
           window.history.pushState(null, null, path);
           this.props.router(path);
-          // this.props.navigate(path);
         },
       }),
       this.createEvent({
@@ -22,10 +21,8 @@ class Header extends Component {
           e.preventDefault();
 
           const path = e.target.closest('.header-rank a').getAttribute('href');
-          window.history.pushState(null, null, path);
           this.props.router(path);
-          // if (await this.guard(path)) this.props.navigate(path);
-          // else this.props.navigate('/signin');
+          window.history.pushState(null, null, '/signin');
         },
       }),
       this.createEvent({
@@ -36,7 +33,6 @@ class Header extends Component {
           const path = e.target.closest('.header-signin a').getAttribute('href');
           window.history.pushState(null, null, path);
           this.props.router(path);
-          // this.props.navigate(path);
         },
       }),
     ];
