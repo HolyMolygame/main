@@ -6,7 +6,7 @@ class Home extends Component {
   domStr() {
     return `
       <div class="home-container">
-        ${new GameCard({ navigate: this.props.navigate.bind(this) }).domStr()}
+        ${new GameCard({ router: this.props.router.bind(this) }).domStr()}
         ${new Contributor().domStr()}
       </div>
     `;

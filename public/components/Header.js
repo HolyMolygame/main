@@ -10,17 +10,19 @@ class Header extends Component {
           e.preventDefault();
 
           const path = e.target.closest('.header-logo a').getAttribute('href');
-          this.props.navigate(path);
+          window.history.pushState(null, null, path);
+          this.props.router(path);
         },
       }),
       this.createEvent({
         type: 'click',
         selector: '.header-rank',
-        handler: async e => {
+        handler: e => {
           e.preventDefault();
+
           const path = e.target.closest('.header-rank a').getAttribute('href');
-          if (await this.guard(path)) this.props.navigate(path);
-          else this.props.navigate('/signin');
+          this.props.router(path);
+          window.history.pushState(null, null, '/signin');
         },
       }),
       this.createEvent({
@@ -29,7 +31,8 @@ class Header extends Component {
         handler: e => {
           e.preventDefault();
           const path = e.target.closest('.header-signin a').getAttribute('href');
-          this.props.navigate(path);
+          window.history.pushState(null, null, path);
+          this.props.router(path);
         },
       }),
     ];
