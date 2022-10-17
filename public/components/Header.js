@@ -11,19 +11,20 @@ class Header extends Component {
           this.props.resetGame();
 
           const path = e.target.closest('.header-logo a').getAttribute('href');
-          this.props.navigate(path);
+          window.history.pushState(null, null, path);
+          this.props.router(path);
         },
       }),
       this.createEvent({
         type: 'click',
         selector: '.header-rank',
-        handler: async e => {
+        handler: e => {
           e.preventDefault();
           this.props.resetGame();
 
           const path = e.target.closest('.header-rank a').getAttribute('href');
-          if (await this.guard(path)) this.props.navigate(path);
-          else this.props.navigate('/signin');
+          this.props.router(path);
+          window.history.pushState(null, null, '/signin');
         },
       }),
       this.createEvent({
@@ -34,7 +35,8 @@ class Header extends Component {
           this.props.resetGame();
 
           const path = e.target.closest('.header-signin a').getAttribute('href');
-          this.props.navigate(path);
+          window.history.pushState(null, null, path);
+          this.props.router(path);
         },
       }),
     ];
@@ -58,5 +60,3 @@ class Header extends Component {
 }
 
 export default Header;
-
-// ${this.props.user ? `<li class="header-rank"><a href="/rank">RANK</a></li>` : `<li>RANK</li>`}

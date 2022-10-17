@@ -10,7 +10,9 @@ class GameCard extends Component {
           e.preventDefault();
 
           const path = e.target.getAttribute('href');
-          this.props.navigate(path);
+          window.history.pushState(null, null, path);
+          this.props.router(path);
+          // this.props.navigate(path);
         },
       }),
     ];
