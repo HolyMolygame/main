@@ -1,32 +1,109 @@
 import Component from './Component.js';
 
 class Signup extends Component {
-  // addEvent() {}
+  getUserIdValid(value) {
+    return /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/.test(value);
+  }
+
+  getPasswordValid(value) {
+    return /^[A-Za-z0-9]{6,12}$/.test(value);
+  }
+
+  getUserNameValid(value) {
+    return !!value;
+  }
+
+  getConfirmPasswordValid(value) {
+    return this.props.password.value === value;
+  }
+
+  addEvent() {
+    return [
+      this.createEvent({
+        type: 'input',
+        selector: '#signup-userid',
+        handler: e => {
+          const { value } = e.target;
+
+          this.props.setUserIdValue(value);
+        },
+      }),
+      this.createEvent({
+        type: 'input',
+        selector: '#signup-name',
+        handler: e => {
+          const { value } = e.target;
+
+          this.props.setUserNameValue(value);
+        },
+      }),
+      this.createEvent({
+        type: 'input',
+        selector: '#signup-password',
+        handler: e => {
+          const { value } = e.target;
+
+          this.props.setUserPasswordValue(value);
+        },
+      }),
+      this.createEvent({
+        type: 'input',
+        selector: '#signup-confirm-password',
+        handler: e => {
+          const { value } = e.target;
+
+          this.props.setConfirmPasswordValue(value);
+        },
+      }),
+    ];
+  }
 
   domStr() {
+    console.log('confirm: ', this.getConfirmPasswordValid(this.props['confirm-password'].value));
+    console.log('confirm-dirty: ', this.props['confirm-password'].dirty);
+
     return `<div class="signup-container">
               <div class="signup-title">SIGN UP</div>
               <form class="form signup_info" action="/signup" method="POST" novalidate>
                 <div class="input-container">
-                  <label for="signup-userid">NICKNAME:</label>
-                  <input type="text" id="signup-userid" name="userid" required autocomplete="off" />
+                  <label for="signup-userid">ID:</label>
+                  <input type="text" id="signup-userid" name="userid" required autocomplete="off" value="${
+                    this.props.userid.value
+                  }" />
                 </div>
-                <div class="hidden error">IS ALREADY REGISTERED</div>
+                <div class="${
+                  this.getUserIdValid(this.props.userid.value) === this.props.userid.dirty ? 'hidden' : ''
+                } error">INVALID ID. PLEASE CHECK YOUR ID</div>
                 <div class="input-container">
-                  <label for="signup-name">ID:</label>
-                  <input type="text" id="signup-name" name="username" required autocomplete="off" />
+                  <label for="signup-name">NICKNAME:</label>
+                  <input type="text" id="signup-name" name="username" required autocomplete="off" value="${
+                    this.props.username.value
+                  }" />
                 </div>
-                <div class="hidden error">INVALID ID. PLEASE CHECK YOUR ID</div>
+                <div class="${
+                  this.getUserNameValid(this.props.username.value) === this.props.username.dirty ? 'hidden' : ''
+                } error">Please write at least one character</div>
                 <div class="input-container">
                   <label for="signup-password">PASSWORD:</label>
-                  <input type="password" id="signup-password" name="password" required autocomplete="off" />
+                  <input type="password" id="signup-password" name="password" required autocomplete="off" value="${
+                    this.props.password.value
+                  }"/>
                 </div>
-                <div class="hidden error">INVALID PW. PLEASE CHECK YOUR PW</div>
+                <div class="${
+                  this.getPasswordValid(this.props.password.value) === this.props.password.dirty ? 'hidden' : ''
+                } error">INVALID PW. PLEASE CHECK YOUR PW</div>
                 <div class="input-container">
                   <label for="signup-confirm-password">CONFIRM:</label>
-                  <input type="password" id="signup-confirm-password" name="confirm-password" required autocomplete="off" />
+                  <input type="password" id="signup-confirm-password" name="confirm-password" required autocomplete="off" value="${
+                    this.props['confirm-password'].value
+                  }"/>
                 </div>
-                <div class="hidden error">PLEASE CHECK YOUR PW</div>
+                <div class="${
+                  this.getConfirmPasswordValid(this.props['confirm-password'].value) ||
+                  !this.props['confirm-password'].dirty
+                    ? 'hidden'
+                    : ''
+                } error">PLEASE CHECK YOUR PW</div>
                 <button class="submit-btn" disabled>SUBMIT</button>
               </form>
             </div>

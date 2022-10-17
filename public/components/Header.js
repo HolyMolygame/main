@@ -8,6 +8,7 @@ class Header extends Component {
         selector: '.header-logo',
         handler: e => {
           e.preventDefault();
+          this.props.resetGame();
 
           const path = e.target.closest('.header-logo a').getAttribute('href');
           this.props.navigate(path);
@@ -18,6 +19,8 @@ class Header extends Component {
         selector: '.header-rank',
         handler: async e => {
           e.preventDefault();
+          this.props.resetGame();
+
           const path = e.target.closest('.header-rank a').getAttribute('href');
           if (await this.guard(path)) this.props.navigate(path);
           else this.props.navigate('/signin');
@@ -28,6 +31,8 @@ class Header extends Component {
         selector: '.header-signin',
         handler: e => {
           e.preventDefault();
+          this.props.resetGame();
+
           const path = e.target.closest('.header-signin a').getAttribute('href');
           this.props.navigate(path);
         },

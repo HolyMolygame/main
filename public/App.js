@@ -22,6 +22,26 @@ class App extends Component {
         { path: '/signup', component: Signup },
         { path: '/matching', component: MatchingCards },
       ],
+      userid: {
+        value: '',
+        dirty: false,
+        error: '이메일 형식에 맞게 입력해 주세요.',
+      },
+      password: {
+        value: '',
+        dirty: false,
+        error: '영문 또는 숫자를 6~12자 입력하세요.',
+      },
+      username: {
+        value: '',
+        dirty: false,
+        error: '이름을 입력해 주세요.',
+      },
+      'confirm-password': {
+        value: '',
+        dirty: false,
+        error: '패스워드가 일치하지 않습니다.',
+      },
     };
   }
 
@@ -111,10 +131,35 @@ class App extends Component {
     });
   }
 
+  setUserIdValue(value) {
+    this.setState({ userid: { ...this.state.userid, value, dirty: true } });
+    if (this.state.userid.value === '') this.setState({ userid: { ...this.state.userid, dirty: false } });
+  }
+
+  setUserPasswordValue(value) {
+    this.setState({ password: { ...this.state.password, value, dirty: true } });
+    if (this.state.password.value === '') this.setState({ password: { ...this.state.password, dirty: false } });
+  }
+
+  setUserNameValue(value) {
+    this.setState({ username: { ...this.state.username, value, dirty: true } });
+    if (this.state.username.value === '') this.setState({ username: { ...this.state.username, dirty: false } });
+  }
+
+  setConfirmPasswordValue(value) {
+    this.setState({ 'confirm-password': { ...this.state['confirm-password'], value, dirty: true } });
+    if (this.state['confirm-password'].value === '')
+      this.setState({ 'confirm-password': { ...this.state['confirm-password'], dirty: false } });
+  }
+
   domStr() {
     const Page = this.state.routes.find(route => route.path === this.state.path)?.component;
     return `
-      ${new Header({ ...this.state, navigate: this.navigate.bind(this) }).domStr()}
+      ${new Header({
+        ...this.state,
+        navigate: this.navigate.bind(this),
+        resetGame: this.resetGame.bind(this),
+      }).domStr()}
       ${new Page({
         ...this.state,
         navigate: this.navigate.bind(this),
@@ -123,6 +168,10 @@ class App extends Component {
         resetOpenedCard: this.resetOpenedCard.bind(this),
         resetGame: this.resetGame.bind(this),
         start: this.start.bind(this),
+        setUserIdValue: this.setUserIdValue.bind(this),
+        setUserNameValue: this.setUserNameValue.bind(this),
+        setUserPasswordValue: this.setUserPasswordValue.bind(this),
+        setConfirmPasswordValue: this.setConfirmPasswordValue.bind(this),
       }).domStr()}
       ${new Footer().domStr()}
     `;
