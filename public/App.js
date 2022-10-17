@@ -114,7 +114,11 @@ class App extends Component {
   domStr() {
     const Page = this.state.routes.find(route => route.path === this.state.path)?.component;
     return `
-      ${new Header({ ...this.state, navigate: this.navigate.bind(this) }).domStr()}
+      ${new Header({
+        ...this.state,
+        navigate: this.navigate.bind(this),
+        resetGame: this.resetGame.bind(this),
+      }).domStr()}
       ${new Page({
         ...this.state,
         navigate: this.navigate.bind(this),

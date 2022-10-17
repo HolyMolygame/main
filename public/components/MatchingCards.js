@@ -1,5 +1,6 @@
 import Component from './Component.js';
 
+let shuffledNum = [];
 let openCard = [];
 let matchedCard = [];
 let isStarted = false;
@@ -22,7 +23,7 @@ class MatchingCards extends Component {
 
           this.props.checkCard(+e.target.closest('.cards').dataset.id);
           if (openCard.length === 2) {
-            if (this.props.shuffledNum[openCard[0] - 1] === this.props.shuffledNum[openCard[1] - 1]) {
+            if (shuffledNum[openCard[0] - 1] === shuffledNum[openCard[1] - 1]) {
               console.log('HOLYMOLY');
               this.props.matchCard(openCard);
               matchedCard = [...matchedCard, ...openCard];
@@ -37,8 +38,6 @@ class MatchingCards extends Component {
         type: 'click',
         selector: '.reset-button',
         handler: () => {
-          openCard = [];
-          matchedCard = [];
           this.props.resetGame();
         },
       }),
@@ -46,6 +45,7 @@ class MatchingCards extends Component {
   }
 
   domStr() {
+    shuffledNum = this.props.shuffledNum;
     openCard = this.props.openCard;
     isStarted = this.props.isStarted;
     convertedTime = this.props.convertedTime;
@@ -58,7 +58,7 @@ class MatchingCards extends Component {
           .map(
             (num, index) => `
           <div class="cards ${
-            openCard.includes(index + 1) || matchedCard.includes(index + 1) ? 'opened' : ''
+            this.props.openCard.includes(index + 1) || this.props.matchedCard.includes(index + 1) ? 'opened' : ''
           }" data-id="${index + 1}">
             <div class="card-inner">
               <div class="card-front">?</div>
@@ -69,7 +69,7 @@ class MatchingCards extends Component {
           )
           .join('')}
       </div>
-      <p class="result-message ${matchedCard.length === 18 ? '' : 'hidden'}">Congratulations!</p>
+      <p class="result-message ${this.props.matchedCard.length === 18 ? '' : 'hidden'}">Congratulations!</p>
       <p class="display">${convertedTime}</p>
       <div class="active-button-container">
         <button class="start-button">Start</button>
