@@ -2,12 +2,19 @@ import Component from './components/Component.js';
 import Home from './components/Home.js';
 import { Header, Footer, MatchingCards, Signin, Rank, Signup } from './components/index.js';
 
+const routes = [
+  { path: '/', component: Home },
+  { path: '/rank', component: Rank },
+  { path: '/signin', component: Signin },
+  { path: '/signup', component: Signup },
+  { path: '/matching', component: MatchingCards },
+];
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       user: null,
-      path: window.location.pathname,
+      Page: Home,
       shuffledNum: this.shuffle(),
       openCard: [],
       matchedCard: [],
@@ -15,14 +22,19 @@ class App extends Component {
       elapsedTime: 0,
       convertedTime: '00:00:00',
       timeId: null,
-      routes: [
-        { path: '/', component: Home },
-        { path: '/rank', component: Rank },
-        { path: '/signin', component: Signin },
-        { path: '/signup', component: Signup },
-        { path: '/matching', component: MatchingCards },
-      ],
     };
+  }
+
+  // 어떤 이벤트가 일어났을때 window.location.pathname 으로 렌더링
+  // url 로 접근했을 떄
+  router(route) {
+    // header 에서 클릭이벤트로 href 를 받아서 path에 담는다.
+    const path = route ?? window.location.pathname;
+
+    // 같을 때는 return 해라.
+    if (window.location.pathname === path) window.history.replaceState(null, null, path);
+    // const result = routes.find(route => route.path === path)?.component;
+    this.setState({ Page: routes.find(route => route.path === path)?.component });
   }
 
   addEvent() {
@@ -31,25 +43,27 @@ class App extends Component {
         type: 'popstate',
         selector: '',
         handler: () => {
-          this.setState({ path: window.location.pathname });
+          this.router(window.location.pathname);
+          // this.setState({ Page: routes.find(route => route.path === window.location.pathname)?.component });
         },
       },
       {
         type: 'DOMContentLoaded',
         selector: '',
         handler: () => {
-          this.setState({ user: JSON.parse(localStorage.getItem('user')) });
+          // this.setState({ user: JSON.parse(localStorage.getItem('user')) });
+          this.router(window.location.pathname);
         },
       },
     ];
   }
 
-  navigate(path, user = null) {
-    if (window.location.pathname === path) return;
-    window.history.pushState(null, null, path);
-    if (user) this.setState({ path, user });
-    else this.setState({ path });
-  }
+  // navigate(path, user = null) {
+  //   if (window.location.pathname === path) return;
+  //   window.history.pushState(null, null, path);
+  //   if (user) this.setState({ path, user });
+  //   else this.setState({ path });
+  // }
 
   shuffle() {
     const copyArray = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9];
@@ -112,12 +126,12 @@ class App extends Component {
   }
 
   domStr() {
-    const Page = this.state.routes.find(route => route.path === this.state.path)?.component;
+    // const Page = this.state.routes.find(route => route.path === this.state.path)?.component;
     return `
-      ${new Header({ ...this.state, navigate: this.navigate.bind(this) }).domStr()}
-      ${new Page({
+      ${new Header({ ...this.state, router: this.router.bind(this) }).domStr()}
+      ${new this.state.Page({
         ...this.state,
-        navigate: this.navigate.bind(this),
+        router: this.router.bind(this),
         checkCard: this.checkCard.bind(this),
         matchCard: this.matchCard.bind(this),
         resetOpenedCard: this.resetOpenedCard.bind(this),

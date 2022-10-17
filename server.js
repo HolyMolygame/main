@@ -41,10 +41,14 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
       console.error('😱 사용자 인증 실패..', e);
       console.log(accessToken);
       // 클라이언트로부터 토큰이 전달되지 않아 accessToken이 undefined이거나 토큰이 유효하지 않으면
-      // return res.redirect('/signin');
-      res.status(401).send({ error: '등록되지 않은 사용자입니다.' });
+      return res.redirect('/signin');
     }
   };
+
+  // auth route
+  app.get('/signin', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+  });
 
   app.post('/signin', (req, res) => {
     const { userid, password } = req.body; // request의 body에 담긴 내용을 사용하기위한 디스트럭쳐링할당
@@ -73,11 +77,8 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
     res.send(user.nickname);
   });
 
-  app.get('/rank', auth, (req, res) => {
-    res.send('로그인된 사용자입니다.');
-  });
-
-  app.get('*', (req, res) => {
+  // url 로 들어오는 모든 요청이 오면 index.html 을 보내준다.
+  app.get('*', auth, (req, res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'));
   });
 
