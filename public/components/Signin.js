@@ -55,8 +55,8 @@ class Signin extends Component {
                   <input type="password" id="signin-password" name="password" required autocomplete="off" />
                 </div>
                 <div class="hidden error">PASSWORDS DO NOT MATCH.</div>
-                <a href="/signup" class="signup-btn">SIGN UP</a>
-                <button class="signin-btn" type="submit">LOGIN</button>
+                <button><a href="/signup" class="signup-btn">SIGN UP</a></button>
+                <button class="signin-btn signin-button-form" type="submit">LOGIN</button>
               </form>
             </div>`;
   }
