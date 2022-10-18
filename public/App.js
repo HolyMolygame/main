@@ -4,8 +4,6 @@ import { Header, Footer, MatchingCards, Signin, Rank, Signup } from './component
 
 const isSigned = async () => {
   const { data } = await axios.get('/auth');
-  console.log(data.success);
-
   return data.success;
 };
 
@@ -34,15 +32,20 @@ class App extends Component {
   }
 
   router(path = window.location.pathname) {
-    // header 에서 클릭이벤트로 href 를 받아서 path에 담는다.
     const route = routes.find(route => route.path === path);
 
-    // change url path
     (async () => {
       !route.guard || (await route.guard())
         ? this.setState({ Page: route.component })
         : this.setState({ Page: route.redirectTo });
     })();
+    console.log(routes.find(route => route.component === this.state.Page)?.path);
+    return routes.find(route => route.component === this.state.Page)?.path;
+  }
+
+  findPath() {
+    // console.log(routes.find(route => route.component === this.state.Page)?.path);
+    return routes.find(route => route.component === this.state.Page)?.path;
   }
 
   addEvent() {
@@ -52,26 +55,17 @@ class App extends Component {
         selector: '',
         handler: () => {
           this.router(window.location.pathname);
-          // this.setState({ Page: routes.find(route => route.path === window.location.pathname)?.component });
         },
       },
       {
         type: 'DOMContentLoaded',
         selector: '',
         handler: () => {
-          // this.setState({ user: JSON.parse(localStorage.getItem('user')) });
           this.router(window.location.pathname);
         },
       },
     ];
   }
-
-  // navigate(path, user = null) {
-  //   if (window.location.pathname === path) return;
-  //   window.history.pushState(null, null, path);
-  //   if (user) this.setState({ path, user });
-  //   else this.setState({ path });
-  // }
 
   shuffle() {
     const copyArray = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9];
@@ -110,9 +104,7 @@ class App extends Component {
 
   convertTime(time) {
     const minutes = (Math.floor(time / 6000) + '').padStart(2, 0);
-    // const seconds = Math.floor((time % 6000) / 100) < 10 ? `0${Math.floor((time % 6000) / 100)}` : `${Math.floor((time % 6000) / 100)}`;
     const seconds = (Math.floor((time % 6000) / 100) + '').padStart(2, 0);
-    // const ms = Math.floor(time % 6000) % 100 < 10 ? `0${Math.floor(time % 6000) % 100}` : `${Math.floor(time % 6000) % 100}`;
     const ms = ((Math.floor(time % 6000) % 100) + '').padStart(2, 0);
 
     return `${minutes}:${seconds}:${ms}`;
@@ -134,9 +126,8 @@ class App extends Component {
   }
 
   domStr() {
-    // const Page = this.state.routes.find(route => route.path === this.state.path)?.component;
     return `
-      ${new Header({ ...this.state, router: this.router.bind(this) }).domStr()}
+      ${new Header({ ...this.state, router: this.router.bind(this), findPath: this.findPath.bind(this) }).domStr()}
       ${new this.state.Page({
         ...this.state,
         router: this.router.bind(this),
