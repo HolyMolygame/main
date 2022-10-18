@@ -12,12 +12,6 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(cookieParser());
 
-let users = [
-  { nickname: 'test', userid: 'test@test.com', password: '123456', record: '00:40:00' },
-  { nickname: 'HEALTY', userid: 'a1', password: '111', record: '00:45:00' },
-  { nickname: '이웅모', userid: 'ungmo2@gmail.com', password: '111111', record: '00:35:00' },
-];
-
 MongoClient.connect(process.env.DBURL, (err, client) => {
   if (err) throw err;
   db = client.db('holymoly');
@@ -87,10 +81,6 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
   });
 
-  // app.get('/rank', (req, res) => {
-  //   res.sendFile(path.join(__dirname, './public/index.html'));
-  // });
-
   app.post('/signup', async (req, res) => {
     const { userid, username, password } = req.body;
 
@@ -147,11 +137,23 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
     res.send(isUser.nickname);
   });
 
-  app.post('/matching', (req, res) => {
+  app.post('/matching', async (req, res) => {
     const { nickname, record } = req.body;
 
-    users = users.map(user => (user.nickname === nickname ? { ...user, nickname, record } : user));
-    console.log(users);
+    const oldValue = await db.collection('user').findOne({ nickname }, (err, res) => {
+      if (err) throw err;
+    });
+    let newValue;
+
+    if (oldValue?.record ?? record > '99:99:99') {
+      newValue = { $set: { record: oldValue.record } };
+    } else if (oldValue?.record ?? record <= '99:99:99') {
+      newValue = { $set: { record } };
+    }
+
+    db.collection('user').updateOne({ nickname }, newValue, (err, res) => {
+      console.log('저장성공!!!');
+    });
 
     res.send(record);
   });
