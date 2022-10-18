@@ -2,7 +2,7 @@
 
 body {
   font-family: 'Press Start 2P', cursive;
-  font-size: 24px;
+  font-size: 20px;
   text-transform: uppercase;
   color: var(--White);
   background-image: url('../src/img/background.jpg');
@@ -64,7 +64,11 @@ a {
   border-radius: 20px;
   margin-bottom: 200px;
 }
+.game-card > p {
+  font-size: 28px;
+}
 .game-card-heading {
+  font-size: 52px;
   margin-top: 40px;
   padding: 96px 0;
 }
@@ -82,8 +86,15 @@ a {
 .game-card-play:hover {
   background-color: var(--Second);
 }
+.game-card-play:hover a {
+  color: var(--Primary);
+}
 
 /**************** contributor ****************/
+.title {
+  color: var(--Second);
+}
+
 .contributor {
   display: flex;
   flex-direction: column;
@@ -195,6 +206,10 @@ a {
   margin-top: 60px;
   margin-right: 100px;
 }
+.signup-btn:hover {
+  background-color: var(--Mint);
+  color: black;
+}
 button:disabled {
   opacity: 0.5;
   /* color: red; */
@@ -208,6 +223,10 @@ button:disabled {
   border-radius: 20px;
   font-size: 18px;
   color: var(--Pink);
+}
+.signin-button-form:hover {
+  background-color: var(--Pink);
+  color: black;
 }
 
 /****************************** signup start **********************************/
@@ -249,6 +268,10 @@ button:disabled {
   box-sizing: border-box;
   margin-top: 20px;
   margin-bottom: 40px;
+}
+.submit-btn:hover {
+  background-color: var(--Pink);
+  color: black;
 }
 
 .error {
