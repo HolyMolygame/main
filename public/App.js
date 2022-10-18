@@ -4,7 +4,6 @@ import { Header, Footer, MatchingCards, Signin, Rank, Signup } from './component
 
 const isSigned = async () => {
   const { data } = await axios.get('/auth');
-  console.log(data.success);
 
   return data.success;
 };
@@ -175,7 +174,6 @@ class App extends Component {
   }
 
   domStr() {
-    // const Page = this.state.routes.find(route => route.path === this.state.path)?.component;
     return `
 
       ${new Header({ ...this.state, router: this.router.bind(this) }).domStr()}

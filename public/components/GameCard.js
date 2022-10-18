@@ -12,7 +12,6 @@ class GameCard extends Component {
           const path = e.target.getAttribute('href');
           window.history.pushState(null, null, path);
           this.props.router(path);
-          // this.props.navigate(path);
         },
       }),
     ];

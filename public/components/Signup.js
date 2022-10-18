@@ -59,9 +59,6 @@ class Signup extends Component {
   }
 
   domStr() {
-    console.log('confirm: ', this.getConfirmPasswordValid(this.props['confirm-password'].value));
-    console.log('confirm-dirty: ', this.props['confirm-password'].dirty);
-
     return `<div class="signup-container">
               <div class="signup-title">SIGN UP</div>
               <form class="form signup_info" action="/signup" method="POST" novalidate>
