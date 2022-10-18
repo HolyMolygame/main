@@ -55,6 +55,28 @@ class Signup extends Component {
           this.props.setConfirmPasswordValue(value);
         },
       }),
+      this.createEvent({
+        type: 'submit',
+        selector: '.signup_info',
+        handler: async e => {
+          e.preventDefault();
+
+          const payload = [...new FormData(document.querySelector('.signup_info'))].reduce(
+            // eslint-disable-next-line no-return-assign
+            (obj, [key, value]) => ((obj[key] = value), obj),
+            {}
+          );
+
+          try {
+            await axios.post('/signup', payload);
+            console.log('SINGUP SUCCESS!');
+            this.props.router('/signin');
+          } catch (e) {
+            console.log('SIGNUP FAILURE..');
+            document.querySelector('.error').classList.remove('hidden');
+          }
+        },
+      }),
     ];
   }
 
@@ -101,7 +123,7 @@ class Signup extends Component {
                     ? 'hidden'
                     : ''
                 } error">PLEASE CHECK YOUR PW</div>
-                <button class="submit-btn" disabled>SUBMIT</button>
+                <button type="submit" class="submit-btn">SUBMIT</button>
               </form>
             </div>
     `;

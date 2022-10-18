@@ -91,7 +91,36 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
   //   res.sendFile(path.join(__dirname, './public/index.html'));
   // });
 
-  app.post('/signin', (req, res) => {
+  app.post('/signup', async (req, res) => {
+    const { userid, username, password } = req.body;
+
+    if (!userid || !password || !username)
+      return res.status(401).send({ error: '사용자 아이디 또는 패스워드가 전달되지 않았습니다.' });
+
+    try {
+      // email을 비교하여 user가 이미 존재하는지 확인
+      const isUser = await db.collection('user').findOne({ id: userid });
+      const isNickname = await db.collection('user').findOne({ nickname: username });
+
+      if (isUser) {
+        return res.status(400).json({ errors: [{ msg: 'User already exists' }] });
+      }
+      if (isNickname) {
+        return res.status(400).json({ errors: [{ msg: 'Nickname already exists' }] });
+      }
+
+      // 디비에 저장
+      db.collection('user').insertOne({ nickname: username, id: userid, password }, (err, result) => {
+        console.log('저장완료');
+      });
+      res.send('Success');
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).send('Server Error');
+    }
+  });
+
+  app.post('/signin', async (req, res) => {
     const { userid, password } = req.body; // request의 body에 담긴 내용을 사용하기위한 디스트럭쳐링할당
     // userid 가 없거나, password가 없으면 띄워주는 에러메세지
     if (!userid || !password)
@@ -99,10 +128,10 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
 
     // users배열에 userid와 password가 일치하는 user있는지 find 해서 user에 담아준다.
     // 데이터베이스를 불러와서 탐색한다음 찾아줘야 하는 코드 작성 필요
-    const user = users.find(user => user.userid === userid && user.password === password);
+    const isUser = await db.collection('user').findOne({ id: userid });
 
     // 만약 위 검색에서 user가 담기지 않았다면 띄워주는 에러메세지
-    if (!user) return res.status(401).send({ error: '등록되지 않은 사용자입니다.' });
+    if (!isUser) return res.status(401).send({ error: '등록되지 않은 사용자입니다.' });
 
     // 로그인 성공 시 user 가 있다면 jwt 토큰을 발급해서 response의 헤더에 쿠키에 담아서 보내줘야함.
     const accessToken = jwt.sign({ userid }, process.env.JWT_SECRET_KEY, {
@@ -115,7 +144,7 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
       httpOnly: true,
     });
 
-    res.send(user.nickname);
+    res.send(isUser.nickname);
   });
 
   app.post('/matching', (req, res) => {

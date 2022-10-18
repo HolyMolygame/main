@@ -9,9 +9,10 @@ class Signin extends Component {
         selector: '.signup-btn',
         handler: e => {
           e.preventDefault();
-          
-          const path = e.target.getAttribute('href');
-          this.props.router(path)
+
+          const path = e.target.closest('.signup-btn').getAttribute('href');
+          window.history.pushState(null, null, path);
+          this.props.router(path);
         },
       }),
       this.createEvent({

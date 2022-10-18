@@ -24,9 +24,8 @@ class Header extends Component {
           this.props.resetGame();
 
           const path = e.target.closest('.header-rank a').getAttribute('href');
-          this.props.router(path);
-
           window.history.pushState(null, null, path);
+          this.props.router(path);
         },
       }),
       this.createEvent({
