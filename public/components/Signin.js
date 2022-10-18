@@ -9,9 +9,10 @@ class Signin extends Component {
         selector: '.signup-btn',
         handler: e => {
           e.preventDefault();
-          if (!e.target.classList.contains('signup-btn')) return;
+          // if (!e.target.classList.contains('signup-btn')) return;
+          
           const path = e.target.getAttribute('href');
-          this.props.navigate(path);
+          this.props.router(path)
         },
       }),
       this.createEvent({
@@ -29,7 +30,7 @@ class Signin extends Component {
           try {
             const { data: user } = await axios.post('/signin', payload);
             console.log('😀 LOGIN SUCCESS!');
-            // if (user) this.props.navigate('/', user);
+            if (user) this.props.router('/', user);
             localStorage.setItem('user', JSON.stringify(user));
           } catch (e) {
             console.log('😱 LOGIN FAILURE..');

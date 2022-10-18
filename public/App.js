@@ -53,21 +53,14 @@ class App extends Component {
     };
   }
 
-  router(path = window.location.pathname) {
+  router(path = window.location.pathname, user = this.state.user) {
     const route = routes.find(route => route.path === path);
 
     (async () => {
       !route.guard || (await route.guard())
-        ? this.setState({ Page: route.component })
-        : this.setState({ Page: route.redirectTo });
+        ? this.setState({ Page: route.component, user })
+        : this.setState({ Page: route.redirectTo, user });
     })();
-    console.log(routes.find(route => route.component === this.state.Page)?.path);
-    return routes.find(route => route.component === this.state.Page)?.path;
-  }
-
-  findPath() {
-    // console.log(routes.find(route => route.component === this.state.Page)?.path);
-    return routes.find(route => route.component === this.state.Page)?.path;
   }
 
   addEvent() {
@@ -83,7 +76,7 @@ class App extends Component {
         type: 'DOMContentLoaded',
         selector: '',
         handler: () => {
-          this.router(window.location.pathname);
+          this.router(window.location.pathname, JSON.parse(localStorage.getItem('user')));
         },
       },
     ];
@@ -171,7 +164,7 @@ class App extends Component {
   domStr() {
     // const Page = this.state.routes.find(route => route.path === this.state.path)?.component;
     return `
-      ${new Header({ ...this.state, router: this.router.bind(this) }).domStr()}
+      ${new Header({ ...this.state, router: this.router.bind(this), resetGame: this.resetGame.bind(this) }).domStr()}
       ${new this.state.Page({
         ...this.state,
         router: this.router.bind(this),
