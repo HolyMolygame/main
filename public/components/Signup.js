@@ -73,6 +73,7 @@ class Signup extends Component {
             this.props.router('/signin');
           } catch (e) {
             console.log('SIGNUP FAILURE..');
+            console.log(e);
             document.querySelector('.error').classList.remove('hidden');
           }
         },
@@ -93,6 +94,7 @@ class Signup extends Component {
                 <div class="${
                   this.getUserIdValid(this.props.userid.value) === this.props.userid.dirty ? 'hidden' : ''
                 } error">INVALID ID. PLEASE CHECK YOUR ID</div>
+                <div class="hint">ex) email@email.com </div>
                 <div class="input-container">
                   <label for="signup-name">NICKNAME:</label>
                   <input type="text" id="signup-name" name="username" required autocomplete="off" value="${
@@ -111,6 +113,7 @@ class Signup extends Component {
                 <div class="${
                   this.getPasswordValid(this.props.password.value) === this.props.password.dirty ? 'hidden' : ''
                 } error">INVALID PW. PLEASE CHECK YOUR PW</div>
+                <div class="hint">6 ~ 12 characters or numbers </div>
                 <div class="input-container">
                   <label for="signup-confirm-password">CONFIRM:</label>
                   <input type="password" id="signup-confirm-password" name="confirm-password" required autocomplete="off" value="${
@@ -123,7 +126,14 @@ class Signup extends Component {
                     ? 'hidden'
                     : ''
                 } error">PLEASE CHECK YOUR PW</div>
-                <button type="submit" class="submit-btn">SUBMIT</button>
+                <button type="submit" ${
+                  this.getUserIdValid(this.props.userid.value) &&
+                  this.getUserNameValid(this.props.username.value) &&
+                  this.getPasswordValid(this.props.password.value) &&
+                  this.getConfirmPasswordValid(this.props['confirm-password'].value)
+                    ? ''
+                    : 'disabled'
+                } class="submit-btn">SUBMIT</button>
               </form>
             </div>
     `;

@@ -195,6 +195,11 @@ a {
   margin-top: 60px;
   margin-right: 100px;
 }
+button:disabled {
+  opacity: 0.5;
+  /* color: red; */
+  /* border: 5px solid blue; */
+}
 
 .signin-btn {
   width: 160px;
@@ -249,7 +254,7 @@ a {
 .error {
   font-size: 14px;
   color: red;
-  margin-top: 10px;
+  margin: 10px;
 }
 /****************************** rank **********************************/
 .rank-title {
