@@ -12,10 +12,10 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(cookieParser());
 
-const users = [
-  { nickname: '이웅모', userid: 'ungmo2@gmail.com', password: '111111' },
-  { nickname: 'test', userid: 'test@test.com', password: '123456' },
-  { nickname: 'HEALTY', userid: 'a1', password: '111' },
+let users = [
+  { nickname: 'test', userid: 'test@test.com', password: '123456', record: '00:40:00' },
+  { nickname: 'HEALTY', userid: 'a1', password: '111', record: '00:45:00' },
+  { nickname: '이웅모', userid: 'ungmo2@gmail.com', password: '111111', record: '00:35:00' },
 ];
 
 MongoClient.connect(process.env.DBURL, (err, client) => {
@@ -37,43 +37,59 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
       const decoded = jwt.verify(accessToken, process.env.JWT_SECRET_KEY);
       console.log(`😀 사용자 인증 성공`, decoded);
       next();
-    } catch (e) {
-      console.error('😱 사용자 인증 실패..', e);
-      console.log(accessToken);
+    } catch {
+      console.error('😱 사용자 인증 실패..');
       // 클라이언트로부터 토큰이 전달되지 않아 accessToken이 undefined이거나 토큰이 유효하지 않으면
       return res.redirect('/signin');
     }
   };
 
   const isSigned = (req, res) => {
-    /**
-     * 토큰이 리퀘스트의 Authorization 헤더를 통해 전달되면 req.headers.authorization으로 전달받고
-     * 토큰이 쿠키를 통해 전달되면 req.cookies.accessToken으로 전달받는다.
-     */
     const accessToken = req.headers.authorization || req.cookies.accessToken;
 
     try {
-      /**
-       * 서명이 유효하고 옵션인 expiration, audience, issuer 등이 유효한 경우 디코딩된 페이로드를 반환한다. 그렇지 않으면 에러가 발생한다.
-       * @see https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback
-       */
       const decoded = jwt.verify(accessToken, process.env.JWT_SECRET_KEY);
       console.log(`😀 사용자 인증 성공`, decoded);
       res.send({ success: true });
-    } catch (e) {
-      console.error('😱 사용자 인증 실패..', e);
-      console.log(accessToken);
-      // 클라이언트로부터 토큰이 전달되지 않아 accessToken이 undefined이거나 토큰이 유효하지 않으면
+    } catch {
+      console.error('😱 사용자 인증 실패..');
       res.send({ success: false });
     }
   };
+
+  const rank = (req, res) => {
+    const accessToken = req.headers.authorization || req.cookies.accessToken;
+
+    const compareFunc = (numA, numB) => {
+      const recordA = numA.record;
+      const recordB = numB.record;
+
+      return recordA < recordB ? -1 : 1;
+    };
+    try {
+      const decoded = jwt.verify(accessToken, process.env.JWT_SECRET_KEY);
+      console.log(`😀 사용자 인증 성공`, decoded);
+
+      users.sort((a, b) => compareFunc(a, b));
+      res.send(users);
+    } catch {
+      console.error('😱 사용자 인증 실패..');
+
+      res.send([]);
+    }
+  };
+  app.get('/auth', isSigned);
+
+  app.get('/ranker', rank);
 
   // auth route
   app.get('/signin', (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
   });
 
-  app.get('/auth', isSigned);
+  // app.get('/rank', (req, res) => {
+  //   res.sendFile(path.join(__dirname, './public/index.html'));
+  // });
 
   app.post('/signin', (req, res) => {
     const { userid, password } = req.body; // request의 body에 담긴 내용을 사용하기위한 디스트럭쳐링할당
@@ -100,6 +116,15 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
     });
 
     res.send(user.nickname);
+  });
+
+  app.post('/matching', (req, res) => {
+    const { nickname, record } = req.body;
+
+    users = users.map(user => (user.nickname === nickname ? { ...user, nickname, record } : user));
+    console.log(users);
+
+    res.send(record);
   });
 
   // url 로 들어오는 모든 요청이 오면 index.html 을 보내준다.

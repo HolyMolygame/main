@@ -4,7 +4,8 @@ let shuffledNum = [];
 let openCard = [];
 let matchedCard = [];
 let isStarted = false;
-let convertedTime = 0;
+let convertedTime = '00:00:00';
+let isFinished = false;
 class MatchingCards extends Component {
   addEvent() {
     return [
@@ -12,6 +13,7 @@ class MatchingCards extends Component {
         type: 'click',
         selector: '.start-button',
         handler: () => {
+          document.body.classList.remove('preload');
           this.props.start();
         },
       }),
@@ -22,6 +24,7 @@ class MatchingCards extends Component {
           if (openCard.length === 2 || !isStarted) return;
 
           this.props.checkCard(+e.target.closest('.cards').dataset.id);
+
           if (openCard.length === 2) {
             if (shuffledNum[openCard[0] - 1] === shuffledNum[openCard[1] - 1]) {
               console.log('HOLYMOLY');
@@ -32,12 +35,26 @@ class MatchingCards extends Component {
               this.props.resetOpenedCard();
             }, 500);
           }
+
+          if (isFinished)
+            (async () => {
+              const payload = { nickname: this.props.user, record: convertedTime };
+
+              try {
+                const { data: record } = await axios.post('/matching', payload);
+                localStorage.setItem('record', JSON.stringify(record));
+              } catch (e) {
+                console.err(e);
+                console.log('😱 LOGIN FAILURE..');
+              }
+            })();
         },
       }),
       this.createEvent({
         type: 'click',
         selector: '.reset-button',
         handler: () => {
+          document.body.classList.add('preload');
           this.props.resetGame();
         },
       }),
@@ -49,6 +66,7 @@ class MatchingCards extends Component {
     openCard = this.props.openCard;
     isStarted = this.props.isStarted;
     convertedTime = this.props.convertedTime;
+    isFinished = this.props.matchedCard.length === 18;
 
     return `
     <div class="container">

@@ -15,56 +15,17 @@ class Rank extends Component {
               </tr>
             </thead>
             <tbody class="rank-container-body">
-              <tr class="rank-first">
-                <td>1</td>
-                <td>YIJU</td>
-                <td>3.1415</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>JUNY</td>
-                <td>3.1415</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>DLCHAE</td>
-                <td>3.1415</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>YIJU</td>
-                <td>3.1415</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>JUNY</td>
-                <td>3.1415</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>DLCHAE</td>
-                <td>3.1415</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>YIJU</td>
-                <td>3.1415</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>JUNY</td>
-                <td>3.1415</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>DLCHAE</td>
-                <td>3.1415</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>YIJU</td>
-                <td>3.1415</td>
-              </tr>
+              ${this.props.ranker
+                .map(
+                  (user, i) => `
+                <tr class="${i === 0 ? 'rank-first' : ''}">
+                  <th>${i + 1}</th>
+                  <th>${user.nickname}</th>
+                  <th>${user.record}</th>
+                </tr>
+              `
+                )
+                .join('')}
             </tbody>
           </table>
         </div>

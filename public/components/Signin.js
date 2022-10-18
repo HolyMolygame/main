@@ -9,7 +9,6 @@ class Signin extends Component {
         selector: '.signup-btn',
         handler: e => {
           e.preventDefault();
-          // if (!e.target.classList.contains('signup-btn')) return;
           
           const path = e.target.getAttribute('href');
           this.props.router(path)

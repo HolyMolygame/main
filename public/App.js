@@ -4,7 +4,6 @@ import { Header, Footer, MatchingCards, Signin, Rank, Signup } from './component
 
 const isSigned = async () => {
   const { data } = await axios.get('/auth');
-  console.log(data.success);
 
   return data.success;
 };
@@ -22,6 +21,7 @@ class App extends Component {
     super(props);
     this.state = {
       user: null,
+      ranker: [],
       Page: Home,
       shuffledNum: this.shuffle(),
       openCard: [],
@@ -53,8 +53,18 @@ class App extends Component {
     };
   }
 
+  async rankerfetch() {
+    const { data } = await axios.get('/ranker');
+    return data;
+  }
+
   router(path = window.location.pathname, user = this.state.user) {
     const route = routes.find(route => route.path === path);
+
+    if (path === '/rank')
+      (async () => {
+        this.state.ranker = await this.rankerfetch();
+      })();
 
     (async () => {
       !route.guard || (await route.guard())

@@ -24,6 +24,9 @@ button {
 .hidden {
   visibility: hidden;
 }
+.preload * {
+  transition: none !important;
+}
 
 /**************** Header ****************/
 .header {
