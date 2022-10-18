@@ -51,30 +51,42 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
     }
   };
 
-  const rank = (req, res) => {
-    const accessToken = req.headers.authorization || req.cookies.accessToken;
+  // const rank = (req, res) => {
+  //   const accessToken = req.headers.authorization || req.cookies.accessToken;
 
-    const compareFunc = (numA, numB) => {
-      const recordA = numA.record;
-      const recordB = numB.record;
+  //   const compareFunc = (numA, numB) => {
+  //     const recordA = numA.record;
+  //     const recordB = numB.record;
 
-      return recordA < recordB ? -1 : 1;
-    };
-    try {
-      const decoded = jwt.verify(accessToken, process.env.JWT_SECRET_KEY);
-      console.log(`😀 사용자 인증 성공`, decoded);
+  //     return recordA < recordB ? -1 : 1;
+  //   };
 
-      users.sort((a, b) => compareFunc(a, b));
-      res.send(users);
-    } catch {
-      console.error('😱 사용자 인증 실패..');
+  //   try {
+  //     const decoded = jwt.verify(accessToken, process.env.JWT_SECRET_KEY);
+  //     console.log(`😀 사용자 인증 성공`, decoded);
 
-      res.send([]);
-    }
-  };
+  //     users.sort((a, b) => compareFunc(a, b));
+  //     res.send(users);
+  //   } catch {
+  //     console.error('😱 사용자 인증 실패..');
+
+  //     res.send([]);
+  //   }
+  // };
+  // {}, { projection: { record } }
+
   app.get('/auth', isSigned);
 
-  app.get('/ranker', rank);
+  app.get('/ranker', (req, res) => {
+    const mysort = { record: 1 };
+    db.collection('user')
+      .find()
+      .sort(mysort)
+      .toArray((err, result) => {
+        if (err) throw err;
+        res.send(result.slice(-10));
+      });
+  });
 
   // auth route
   app.get('/signin', (req, res) => {
@@ -100,9 +112,12 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
       }
 
       // 디비에 저장
-      db.collection('user').insertOne({ nickname: username, id: userid, password }, (err, result) => {
-        console.log('저장완료');
-      });
+      db.collection('user').insertOne(
+        { nickname: username, id: userid, password, record: '99:99:96' },
+        (err, result) => {
+          console.log('저장완료');
+        }
+      );
       res.send('Success');
     } catch (error) {
       console.error(error.message);
@@ -140,14 +155,12 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
   app.post('/matching', async (req, res) => {
     const { nickname, record } = req.body;
 
-    const oldValue = await db.collection('user').findOne({ nickname }, (err, res) => {
-      if (err) throw err;
-    });
+    const oldValue = await db.collection('user').findOne({ nickname });
     let newValue;
 
-    if (oldValue?.record ?? record > '99:99:99') {
+    if (oldValue.record < record) {
       newValue = { $set: { record: oldValue.record } };
-    } else if (oldValue?.record ?? record <= '99:99:99') {
+    } else if (oldValue.record >= record) {
       newValue = { $set: { record } };
     }
 

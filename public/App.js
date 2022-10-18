@@ -63,7 +63,9 @@ class App extends Component {
 
     if (path === '/rank')
       (async () => {
+        console.log(await this.rankerfetch());
         this.state.ranker = await this.rankerfetch();
+        console.log(this.state.ranker);
       })();
 
     (async () => {
