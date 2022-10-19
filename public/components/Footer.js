@@ -6,9 +6,7 @@ class Footer extends Component {
       this.createEvent({
         type: 'click',
         selector: '.footer-top-button',
-        handler: () => {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        },
+        handler: () => window.scrollTo({ top: 0, behavior: 'smooth' }),
       }),
     ];
   }
