@@ -70,6 +70,7 @@ class Signup extends Component {
           try {
             await axios.post('/signup', payload);
             console.log('SINGUP SUCCESS!');
+            alert('SINGUP SUCCESS!');
             this.props.router('/signin');
           } catch (e) {
             console.log('SIGNUP FAILURE..');

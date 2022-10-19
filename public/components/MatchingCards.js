@@ -45,7 +45,7 @@ class MatchingCards extends Component {
                 localStorage.setItem('record', JSON.stringify(record));
               } catch (e) {
                 console.err(e);
-                console.log('😱 LOGIN FAILURE..');
+                console.log("😱 your record didn't register on rank please signin.");
               }
             })();
         },
@@ -90,7 +90,7 @@ class MatchingCards extends Component {
       <p class="result-message ${this.props.matchedCard.length === 18 ? '' : 'hidden'}">Congratulations!</p>
       <p class="display">${convertedTime}</p>
       <div class="active-button-container">
-        <button class="start-button">Start</button>
+        <button class="start-button" ${this.props.isStarted ? 'disabled' : ''}>Start</button>
         <button class="reset-button">RESET</button>
       </div>
     </div>
