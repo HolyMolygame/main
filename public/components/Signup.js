@@ -87,7 +87,7 @@ class Signup extends Component {
               <div class="signup-title">SIGN UP</div>
               <form class="form signup_info" action="/signup" method="POST" novalidate>
                 <div class="input-container">
-                  <label for="signup-userid">ID:</label>
+                  <label for="signup-userid">EMAIL:</label>
                   <input type="text" id="signup-userid" name="userid" required autocomplete="off" value="${
                     this.props.userid.value
                   }" />

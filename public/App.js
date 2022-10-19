@@ -57,7 +57,7 @@ class App extends Component {
   router(path = window.location.pathname, user = this.state.user) {
     const route = routes.find(route => route.path === path);
 
-    if (path === '/rank') (async () => this.setState({ ranker: await this.rankerfetch() }))();
+    // if (path === '/rank') (async () => this.setState({ ranker: await this.rankerfetch() }))();
     if (path === '/logout')
       (async () => {
         await axios.get('/logout');
@@ -67,7 +67,7 @@ class App extends Component {
 
     (async () => {
       !route.guard || (await route.guard())
-        ? this.setState({ Page: route.component, user })
+        ? this.setState(path === '/rank' ? { ranker: await this.rankerfetch() } : { Page: route.component, user })
         : this.setState({ Page: route.redirectTo, user });
     })();
   }
