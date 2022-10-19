@@ -453,7 +453,3 @@ button:disabled {
 .result-message {
   text-align: center;
 }
-
-/* mediaquery */
-@media (max-width: 321px) {
-}
