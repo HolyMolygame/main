@@ -43,9 +43,11 @@ li {
 }
 .header-list {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   column-gap: 40px;
   list-style-type: none;
+  vertical-align: bottom;
+  padding-top: 10px;
 }
 .header-logo {
   font-size: 40px;
@@ -55,6 +57,14 @@ a {
   text-decoration: none;
 }
 
+.header-user {
+  color: var(--Second);
+  font-size: 30px;
+}
+
+.header-rank a {
+  color: var(--Primary);
+}
 /**************** game-card ****************/
 .game-card {
   text-align: center;
