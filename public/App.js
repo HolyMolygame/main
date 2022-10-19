@@ -103,17 +103,20 @@ class App extends Component {
   }
 
   start() {
-    this.setState({
-      timeId: setInterval(() => {
-        this.setState({
-          elapsedTime: this.state.elapsedTime + 1,
-          convertedTime: this.convertTime(this.state.elapsedTime),
-        });
-        if (this.state.matchedCard.length === 18) {
-          clearInterval(this.state.timeId);
-        }
-      }, 10),
-      isStarted: true,
+    this.showCards(() => {
+      this.setState({
+        timeId: setInterval(() => {
+          this.setState({
+            elapsedTime: this.state.elapsedTime + 1,
+            convertedTime: this.convertTime(this.state.elapsedTime),
+          });
+          if (this.state.matchedCard.length === 18) {
+            clearInterval(this.state.timeId);
+          }
+        }, 10),
+        isStarted: true,
+        matchedCard: [],
+      });
     });
   }
 
@@ -127,6 +130,13 @@ class App extends Component {
 
   resetOpenedCard() {
     this.setState({ openCard: [] });
+  }
+
+  showCards(callback) {
+    this.setState({
+      matchedCard: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+    });
+    setTimeout(callback, 1000);
   }
 
   resetGame() {
