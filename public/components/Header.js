@@ -39,6 +39,19 @@ class Header extends Component {
           this.props.router(path);
         },
       }),
+      this.createEvent({
+        type: 'click',
+        selector: '.header-logout',
+        handler: e => {
+          e.preventDefault();
+          this.props.resetGame();
+
+          const path = e.target.closest('.header-logout').getAttribute('href');
+          window.history.pushState(null, null, '/');
+          window.localStorage.clear();
+          this.props.router('/logout');
+        },
+      }),
     ];
   }
 
@@ -50,7 +63,7 @@ class Header extends Component {
         <li class="header-rank"><a href="/rank">RANK</a></li>
         ${
           this.props.user
-            ? `<li><span style="color: orange; font-size: 30px;">${this.props.user}</span> WELCOME!</li>`
+            ? `<li><span style="color: orange; font-size: 30px;">${this.props.user}</span> Hi!<a class="header-logout" href="/logout">LOGOUT</a></li>`
             : `<li class="header-signin"><a href="/signin">SIGNIN/SIGNUP</a></li>`
         }
       </ul>

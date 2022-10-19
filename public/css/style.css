@@ -37,10 +37,10 @@ button {
   margin-right: auto;
   padding-top: 20px;
 }
-.header > h1,
+/* .header > h1,
 li {
   cursor: pointer;
-}
+} */
 .header-list {
   display: flex;
   align-items: baseline;
@@ -64,6 +64,13 @@ a {
 
 .header-rank a {
   color: var(--Primary);
+  font-size: 20px;
+}
+
+.header-logout {
+  color: var(--Mint);
+  padding-left: 15px;
+  font-size: 18px;
 }
 /**************** game-card ****************/
 .game-card {

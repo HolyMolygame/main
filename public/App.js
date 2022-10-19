@@ -13,6 +13,7 @@ const routes = [
   { path: '/signin', component: Signin },
   { path: '/signup', component: Signup },
   { path: '/matching', component: MatchingCards },
+  { path: '/logout', component: Home },
 ];
 
 class App extends Component {
@@ -61,6 +62,12 @@ class App extends Component {
     const route = routes.find(route => route.path === path);
 
     if (path === '/rank') (async () => this.setState({ ranker: await this.rankerfetch() }))();
+    if (path === '/logout')
+      (async () => {
+        await axios.get('/logout');
+        this.setState({ user: null });
+        alert('로그아웃되었습니다~');
+      })();
 
     (async () => {
       !route.guard || (await route.guard())

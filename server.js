@@ -67,6 +67,8 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
   // auth route
   app.get('/signin', (req, res) => res.sendFile(path.join(__dirname, './public/index.html')));
 
+  app.get('/logout', (req, res) => res.clearCookie('accessToken').end());
+
   app.post('/signup', async (req, res) => {
     const { userid, username, password } = req.body;
 
