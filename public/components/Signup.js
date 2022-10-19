@@ -74,6 +74,8 @@ class Signup extends Component {
             this.props.router('/signin');
           } catch (e) {
             console.log('SIGNUP FAILURE..');
+            console.dir(e.response);
+            // alert(e.response.data.error);
             document.querySelector('.error').classList.remove('hidden');
           }
         },

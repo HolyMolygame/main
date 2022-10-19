@@ -35,6 +35,7 @@ class Signin extends Component {
             localStorage.setItem('user', JSON.stringify(user));
           } catch (e) {
             console.log('😱 LOGIN FAILURE..');
+            alert(e.response.data.error);
             document.querySelector('.error').classList.remove('hidden');
           }
         },

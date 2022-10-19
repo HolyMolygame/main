@@ -70,15 +70,12 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
   app.post('/signup', async (req, res) => {
     const { userid, username, password } = req.body;
 
-    if (!userid || !password || !username)
-      return res.status(401).send({ error: '사용자 아이디 또는 패스워드가 전달되지 않았습니다.' });
-
     try {
       const isUser = await dbUser.findOne({ id: userid });
-      const isNickname = await dbUser.findOne({ nickname: username });
+      // const isNickname = await dbUser.findOne({ nickname: username });
 
-      if (isUser) res.status(400).json({ errors: [{ msg: 'User already exists' }] });
-      if (isNickname) res.status(400).json({ errors: [{ msg: 'Nickname already exists' }] });
+      if (isUser) return res.status(401).send({ error: '사용중인 아이디입니다.' });
+      // if (isNickname) return res.status(401).send({ error: '사용중인 닉네임입니다.' });
 
       dbUser.insertOne({ nickname: username, id: userid, password, record: '99:99:96' }, (err, res) => {
         if (err) throw err;
@@ -86,8 +83,8 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
       });
       res.send('Success');
     } catch (error) {
-      console.error(error.message);
-      res.status(500).send('Server Error');
+      console.log(error.message);
+      return res.status(500).send('Server Error');
     }
   });
 
@@ -98,7 +95,10 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
       return res.status(401).send({ error: '사용자 아이디 또는 패스워드가 전달되지 않았습니다.' });
 
     const isUser = await dbUser.findOne({ id: userid });
-    if (!isUser) res.status(401).send({ error: '등록되지 않은 사용자입니다.' });
+    const isPassword = await dbUser.findOne({ password });
+
+    if (!isUser) return res.status(401).send({ error: '등록되지 않은 사용자입니다.' });
+    if (!isPassword) return res.status(401).send({ error: '비밀번호가 틀렸습니다.' });
 
     // jwt 토큰 발급
     const accessToken = jwt.sign({ userid }, process.env.JWT_SECRET_KEY, {
