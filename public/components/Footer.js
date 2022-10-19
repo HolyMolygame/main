@@ -13,7 +13,7 @@ class Footer extends Component {
 
   domStr() {
     return `
-    <div class="footer-outer">
+    <div class="footer-container">
       <div class="footer-inner">
         <span>HOLY MOLY</span>
         <div class="footer-description">

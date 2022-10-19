@@ -19,7 +19,7 @@ class GameCard extends Component {
 
   domStr() {
     return `
-    <div class="game-card">
+    <div class="game-card-container">
       <h2 class="game-card-heading">MATCHING CARDS</h2>
       <p>remember cards and match them</p>
       <button class="game-card-play"><a href="/matching">play</a></button>

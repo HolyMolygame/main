@@ -3,7 +3,7 @@ import Component from './Component.js';
 class Contributor extends Component {
   domStr() {
     return `
-    <div class="contributor">
+    <div class="contributor-container">
       <h2 class="contributor-heading">contributor</h2>
       <div class="profile">
         <img src="./src/img/yiju_profile.webp" alt="loco 프로필" />

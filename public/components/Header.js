@@ -57,7 +57,7 @@ class Header extends Component {
 
   domStr() {
     return `
-    <div class="header">
+    <div class="header-container">
       <h1 class="header-logo"><a href="/">HOLY MOLY</a></h1>
       <ul class="header-list">
         <li class="header-rank"><a href="/rank">RANK</a></li>

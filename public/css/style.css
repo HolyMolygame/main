@@ -1,11 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 body {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
   font-family: 'Press Start 2P', cursive;
   font-size: 20px;
   text-transform: uppercase;
   color: var(--White);
   background-image: url('../src/img/background.jpg');
+  justify-content: center;
 }
 button {
   border: 0;
@@ -20,7 +24,6 @@ button {
   --Mint: #5eccc7;
   --Pink: #d856a7;
 }
-
 .hidden {
   visibility: hidden;
 }
@@ -29,7 +32,7 @@ button {
 }
 
 /**************** Header ****************/
-.header {
+.header-container {
   display: flex;
   justify-content: space-between;
   width: 1246px;
@@ -37,10 +40,6 @@ button {
   margin-right: auto;
   padding-top: 20px;
 }
-/* .header > h1,
-li {
-  cursor: pointer;
-} */
 .header-list {
   display: flex;
   align-items: baseline;
@@ -73,7 +72,7 @@ a {
   font-size: 18px;
 }
 /**************** game-card ****************/
-.game-card {
+.game-card-container {
   text-align: center;
   margin-left: auto;
   margin-right: auto;
@@ -113,7 +112,7 @@ a {
   color: var(--Second);
 }
 
-.contributor {
+.contributor-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -164,7 +163,7 @@ a {
 }
 
 /**************** footer ****************/
-.footer-outer {
+.footer-container {
   width: 100%;
   font-size: 14px;
   margin-top: 160px;
@@ -364,6 +363,13 @@ button:disabled {
 }
 /******************************* matching card *******************************/
 
+.game-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
 .game-title {
   font-size: 80px;
   color: #fff;
@@ -393,7 +399,7 @@ button:disabled {
   width: 100%;
   height: 100%;
   text-align: center;
-  transition: transform 0.5s;
+  transition: transform 0.3s;
   transform-style: preserve-3d;
 }
 
