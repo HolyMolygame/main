@@ -60,7 +60,7 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
       .sort({ record: 1 })
       .toArray((err, result) => {
         if (err) throw err;
-        res.send(result.slice(-10));
+        res.send(result.slice(0, 10));
       });
   });
 

@@ -49,7 +49,7 @@ class Header extends Component {
           const path = e.target.closest('.header-logout').getAttribute('href');
           window.history.pushState(null, null, '/');
           window.localStorage.clear();
-          this.props.router('/logout');
+          this.props.router(path);
         },
       }),
     ];
