@@ -45,7 +45,7 @@ class MatchingCards extends Component {
                 localStorage.setItem('record', JSON.stringify(record));
               } catch (e) {
                 console.err(e);
-                console.log('😱 LOGIN FAILURE..');
+                console.log("😱 your record didn't register on rank please signin.");
               }
             })();
         },
