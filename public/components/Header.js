@@ -11,7 +11,6 @@ class Header extends Component {
           this.props.resetGame();
 
           const path = e.target.closest('.header-logo a').getAttribute('href');
-          // 만약 로그인 한 경우면 rank 아니면 signin
           window.history.pushState(null, null, path);
           this.props.router(path);
         },

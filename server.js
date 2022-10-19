@@ -60,7 +60,7 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
       .sort({ record: 1 })
       .toArray((err, result) => {
         if (err) throw err;
-        res.send(result.slice(-10));
+        res.send(result.slice(0, 10));
       });
   });
 
@@ -134,7 +134,8 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
     res.send(record);
   });
 
-  app.get('*', auth, (req, res) => res.sendFile(path.join(__dirname, 'public/index.html')));
+  app.get('/rank', auth, (req, res) => res.sendFile(path.join(__dirname, 'public/index.html')));
+  app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'public/index.html')));
 
   app.listen('5010', () => console.log(`Server listening on http://localhost:${port}`));
 });
