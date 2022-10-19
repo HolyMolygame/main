@@ -1,6 +1,5 @@
 import Component from './components/Component.js';
-import Home from './components/Home.js';
-import { Header, Footer, MatchingCards, Signin, Rank, Signup } from './components/index.js';
+import { Header, Footer, MatchingCards, Signin, Rank, Signup, Home } from './components/index.js';
 
 const isSigned = async () => {
   const { data } = await axios.get('/auth');
@@ -17,8 +16,8 @@ const routes = [
 ];
 
 class App extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       user: null,
       ranker: [],
@@ -61,12 +60,7 @@ class App extends Component {
   router(path = window.location.pathname, user = this.state.user) {
     const route = routes.find(route => route.path === path);
 
-    if (path === '/rank')
-      (async () => {
-        console.log(await this.rankerfetch());
-        this.state.ranker = await this.rankerfetch();
-        console.log(this.state.ranker);
-      })();
+    if (path === '/rank') (async () => this.setState({ ranker: await this.rankerfetch() }))();
 
     (async () => {
       !route.guard || (await route.guard())
@@ -80,16 +74,12 @@ class App extends Component {
       {
         type: 'popstate',
         selector: '',
-        handler: () => {
-          this.router(window.location.pathname);
-        },
+        handler: () => this.router(window.location.pathname),
       },
       {
         type: 'DOMContentLoaded',
         selector: '',
-        handler: () => {
-          this.router(window.location.pathname, JSON.parse(localStorage.getItem('user')));
-        },
+        handler: () => this.router(window.location.pathname, JSON.parse(localStorage.getItem('user'))),
       },
     ];
   }
@@ -102,31 +92,6 @@ class App extends Component {
       [copyArray[index], copyArray[randomPosition]] = [copyArray[randomPosition], copyArray[index]];
     }
     return copyArray;
-  }
-
-  checkCard(target) {
-    this.setState({ openCard: [...this.state.openCard, target] });
-  }
-
-  matchCard(target) {
-    this.setState({ matchedCard: [...this.state.matchedCard, ...target] });
-  }
-
-  resetOpenedCard() {
-    this.setState({ openCard: [] });
-  }
-
-  resetGame() {
-    clearInterval(this.state.timeId);
-    this.setState({
-      shuffledNum: this.shuffle(),
-      isStarted: false,
-      openCard: [],
-      matchedCard: [],
-      elapsedTime: 0,
-      convertedTime: '00:00:00',
-      timeId: null,
-    });
   }
 
   convertTime(time) {
@@ -152,36 +117,55 @@ class App extends Component {
     });
   }
 
+  checkCard(target) {
+    this.setState({ openCard: [...this.state.openCard, target] });
+  }
+
+  addMatchedCard(target) {
+    this.setState({ matchedCard: [...this.state.matchedCard, ...target] });
+  }
+
+  resetOpenedCard() {
+    this.setState({ openCard: [] });
+  }
+
+  resetGame() {
+    clearInterval(this.state.timeId);
+    this.setState({
+      shuffledNum: this.shuffle(),
+      isStarted: false,
+      openCard: [],
+      matchedCard: [],
+      elapsedTime: 0,
+      convertedTime: '00:00:00',
+      timeId: null,
+    });
+  }
+
   setUserIdValue(value) {
-    this.setState({ userid: { ...this.state.userid, value, dirty: true } });
-    if (this.state.userid.value === '') this.setState({ userid: { ...this.state.userid, dirty: false } });
+    this.setState({ userid: { ...this.state.userid, value, dirty: value !== '' } });
   }
 
   setUserPasswordValue(value) {
-    this.setState({ password: { ...this.state.password, value, dirty: true } });
-    if (this.state.password.value === '') this.setState({ password: { ...this.state.password, dirty: false } });
+    this.setState({ password: { ...this.state.password, value, dirty: value !== '' } });
   }
 
   setUserNameValue(value) {
-    this.setState({ username: { ...this.state.username, value, dirty: true } });
-    if (this.state.username.value === '') this.setState({ username: { ...this.state.username, dirty: false } });
+    this.setState({ username: { ...this.state.username, value, dirty: value !== '' } });
   }
 
   setConfirmPasswordValue(value) {
-    this.setState({ 'confirm-password': { ...this.state['confirm-password'], value, dirty: true } });
-    if (this.state['confirm-password'].value === '')
-      this.setState({ 'confirm-password': { ...this.state['confirm-password'], dirty: false } });
+    this.setState({ 'confirm-password': { ...this.state['confirm-password'], value, dirty: value !== '' } });
   }
 
   domStr() {
-    // const Page = this.state.routes.find(route => route.path === this.state.path)?.component;
     return `
       ${new Header({ ...this.state, router: this.router.bind(this), resetGame: this.resetGame.bind(this) }).domStr()}
       ${new this.state.Page({
         ...this.state,
         router: this.router.bind(this),
         checkCard: this.checkCard.bind(this),
-        matchCard: this.matchCard.bind(this),
+        addMatchedCard: this.addMatchedCard.bind(this),
         resetOpenedCard: this.resetOpenedCard.bind(this),
         resetGame: this.resetGame.bind(this),
         start: this.start.bind(this),

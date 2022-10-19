@@ -28,7 +28,7 @@ class MatchingCards extends Component {
           if (openCard.length === 2) {
             if (shuffledNum[openCard[0] - 1] === shuffledNum[openCard[1] - 1]) {
               console.log('HOLYMOLY');
-              this.props.matchCard(openCard);
+              this.props.addMatchedCard(openCard);
               matchedCard = [...matchedCard, ...openCard];
             }
             setTimeout(() => {
