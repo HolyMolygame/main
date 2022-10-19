@@ -1,0 +1,455 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 20px;
+  text-transform: uppercase;
+  color: var(--White);
+  background-image: url('../src/img/background.jpg');
+  justify-content: center;
+}
+button {
+  border: 0;
+  cursor: pointer;
+  background-color: transparent;
+}
+:root {
+  --Primary: #b10d8d;
+  --Second: #ffd233;
+  --Gray: #666666;
+  --White: #d9d9d9;
+  --Mint: #5eccc7;
+  --Pink: #d856a7;
+}
+.hidden {
+  visibility: hidden;
+}
+.preload * {
+  transition: none !important;
+}
+
+/**************** Header ****************/
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  width: 1246px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 20px;
+}
+.header-list {
+  display: flex;
+  align-items: baseline;
+  column-gap: 40px;
+  list-style-type: none;
+  vertical-align: bottom;
+  padding-top: 10px;
+}
+.header-logo {
+  font-size: 40px;
+}
+a {
+  color: var(--White);
+  text-decoration: none;
+}
+
+.header-user {
+  color: var(--Second);
+  font-size: 30px;
+}
+
+.header-rank a {
+  color: var(--Primary);
+  font-size: 20px;
+}
+
+.header-logout {
+  color: var(--Mint);
+  padding-left: 15px;
+  font-size: 18px;
+}
+/**************** game-card ****************/
+.game-card-container {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  background-image: linear-gradient(to bottom, rgba(240, 240, 240, 0.2), transparent);
+  width: 1246px;
+  border-radius: 20px;
+  margin-bottom: 200px;
+}
+.game-card > p {
+  font-size: 28px;
+}
+.game-card-heading {
+  font-size: 52px;
+  margin-top: 40px;
+  padding: 96px 0;
+}
+.game-card-play {
+  margin-top: 80px;
+  font-size: 80px;
+  border: 5px solid var(--Primary);
+  color: var(--Primary);
+  border-radius: 40px;
+}
+.game-card-play a {
+  display: block;
+  padding: 30px 40px;
+}
+.game-card-play:hover {
+  background-color: rgba(255, 210, 51, 0.8);
+}
+.game-card-play:hover a {
+  color: var(--Primary);
+}
+
+/**************** contributor ****************/
+.title {
+  color: var(--Second);
+}
+
+.contributor-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #ffffff;
+}
+.contributor-heading {
+  color: var(--Second);
+  margin-bottom: 120px;
+}
+.profile {
+  display: flex;
+  column-gap: 50px;
+  align-items: center;
+  margin-bottom: 70px;
+  font-size: 16px;
+  vertical-align: top;
+}
+.profile > img {
+  width: 250px;
+  height: 250px;
+  border: 6px solid rgb(102, 102, 102, 0.5);
+  border-radius: 50%;
+}
+
+.profile-title {
+  padding-left: 30px;
+}
+
+.profile-title .title {
+  font-size: 20px;
+}
+
+.profile-description {
+  width: 900px;
+  line-height: 1.7;
+  padding: 5px;
+  box-sizing: content-box;
+  border: 1px solid transparent;
+  border-radius: 30px;
+  background-image: linear-gradient(#000, #000),
+    linear-gradient(to right, rgb(102, 102, 102, 0.3), rgba(247, 165, 12, 0.7));
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+}
+.profile-description:nth-child(1) {
+  background-image: linear-gradient(#000, #000),
+    linear-gradient(to left, rgb(102, 102, 102, 0.3), rgba(247, 165, 12, 0.7));
+}
+
+/**************** footer ****************/
+.footer-container {
+  width: 100%;
+  font-size: 14px;
+  margin-top: 160px;
+  position: relative;
+  bottom: 20px;
+}
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 1246px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footer-inner span {
+  font-size: 18px;
+}
+
+.footer-description {
+  text-align: center;
+}
+
+/****************************** signin start**********************************/
+.signin-container {
+  width: 800px;
+  height: 654px;
+  /* background-color: #000; */
+  border-radius: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  margin: 0 auto;
+  text-align: center;
+  color: #fff;
+}
+
+.input-container {
+  display: flex;
+  border-bottom: 2px solid #fff;
+}
+
+.input-container > label {
+  line-height: 80px;
+  margin-left: 30px;
+}
+
+.input-container > input {
+  line-height: 80px;
+  background: none;
+  border: none;
+  color: #fff;
+}
+
+.signin-title {
+  font-size: 60px;
+  font-weight: 300;
+  padding-top: 80px;
+  margin-bottom: 80px;
+}
+
+.signin_info {
+  width: 613px;
+  font-size: 18px;
+  margin: 0 auto;
+}
+
+.signup-btn {
+  width: 160px;
+  border: 2px solid var(--Mint);
+  border-radius: 20px;
+  font-size: 18px;
+  color: var(--Mint);
+  display: inline-block;
+  text-decoration: none;
+  line-height: 80px;
+  box-sizing: border-box;
+  margin-top: 60px;
+  margin-right: 100px;
+}
+.signup-btn:hover {
+  background-color: var(--Mint);
+  color: black;
+}
+button:disabled {
+  opacity: 0.5;
+  /* color: red; */
+  /* border: 5px solid blue; */
+}
+
+.signin-btn {
+  width: 160px;
+  line-height: 80px;
+  border: 2px solid var(--Pink);
+  border-radius: 20px;
+  font-size: 18px;
+  color: var(--Pink);
+}
+.signin-button-form:hover {
+  background-color: var(--Pink);
+  color: black;
+}
+
+/****************************** signup start **********************************/
+.signup-container {
+  width: 800px;
+  border-radius: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  margin: 0 auto;
+  text-align: center;
+  color: #fff;
+}
+
+.signup-title {
+  font-size: 60px;
+  font-weight: 300;
+  padding-top: 80px;
+  margin-bottom: 80px;
+}
+
+.signup_info {
+  width: 613px;
+  font-size: 18px;
+  margin: 0 auto;
+}
+
+.signup_info ~ .input-container {
+  margin-bottom: 80px;
+}
+
+.submit-btn {
+  width: 160px;
+  border: 2px solid var(--Primary);
+  border-radius: 20px;
+  font-size: 18px;
+  color: var(--Pink);
+  display: inline-block;
+  text-decoration: none;
+  line-height: 80px;
+  box-sizing: border-box;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+.submit-btn:hover {
+  background-color: var(--Pink);
+  color: black;
+}
+
+.error {
+  font-size: 14px;
+  color: red;
+  margin: 10px;
+}
+/****************************** rank **********************************/
+.rank-title {
+  font-size: 80px;
+  color: #fff;
+  text-align: center;
+  background-color: #666666;
+}
+
+.rank-title span {
+  color: #d856a7;
+}
+
+.rank-container {
+  width: 1270px;
+  height: 526px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 24px;
+  background-color: #666666;
+  color: #fff;
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  border-radius: 0px 0px 20px 20px;
+  overflow: scroll;
+}
+
+.rank-table {
+  width: 100%;
+  padding: 40px 145px;
+}
+
+.rank-table th {
+  padding-bottom: 20px;
+}
+
+.rank-container-head tr th {
+  padding-bottom: 32px;
+}
+
+.rank-container-body tr td {
+  padding-bottom: 50px;
+}
+
+.rank-first {
+  font-size: 32px;
+  color: #ffd233;
+}
+/******************************* matching card *******************************/
+
+.game-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.game-title {
+  font-size: 80px;
+  color: #fff;
+  text-align: center;
+  margin: 100px 0 80px 0;
+}
+
+.card-container {
+  width: 1020px;
+  margin: 0 auto 40px auto;
+}
+
+.cards {
+  width: 150px;
+  height: 150px;
+  color: #fff;
+  font-size: 60px;
+  line-height: 150px;
+  margin-bottom: 20px;
+  display: inline-block;
+  cursor: pointer;
+  /* perspective: 140px; */
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.3s;
+  transform-style: preserve-3d;
+}
+
+.cards.opened .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  border-radius: 20px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.card-front {
+  background-color: #5eccc7;
+}
+
+.card-back {
+  background-color: crimson;
+  transform: rotateY(180deg);
+}
+
+.active-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.start-button {
+  color: #ffd233;
+  font-size: 24px;
+  width: 160px;
+  height: 80px;
+  margin: 0 auto;
+  display: inherit;
+}
+.reset-button {
+  color: #ffd233;
+  font-size: 24px;
+  width: 160px;
+  height: 80px;
+  margin: 0 auto;
+  display: inherit;
+}
+.display {
+  text-align: center;
+  color: var(--Pink);
+}
+.result-message {
+  text-align: center;
+}
