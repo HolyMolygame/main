@@ -33,22 +33,18 @@ class App extends Component {
       userid: {
         value: '',
         dirty: false,
-        error: '이메일 형식에 맞게 입력해 주세요.',
       },
       password: {
         value: '',
         dirty: false,
-        error: '영문 또는 숫자를 6~12자 입력하세요.',
       },
       username: {
         value: '',
         dirty: false,
-        error: '이름을 입력해 주세요.',
       },
       'confirm-password': {
         value: '',
         dirty: false,
-        error: '패스워드가 일치하지 않습니다.',
       },
     };
   }
@@ -66,7 +62,7 @@ class App extends Component {
       (async () => {
         await axios.get('/logout');
         this.setState({ user: null });
-        alert('로그아웃되었습니다~');
+        alert('logout success!');
       })();
 
     (async () => {

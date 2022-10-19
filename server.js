@@ -30,10 +30,10 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
        * @see https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback
        */
       const decoded = jwt.verify(accessToken, process.env.JWT_SECRET_KEY);
-      console.log(`😀 사용자 인증 성공`, decoded);
+      console.log(`😀 auth success`, decoded);
       next();
     } catch {
-      console.error('😱 사용자 인증 실패..');
+      console.error('😱 auth failure..');
       // 클라이언트로부터 토큰이 전달되지 않아 accessToken이 undefined이거나 토큰이 유효하지 않으면
       return res.redirect('/signin');
     }
@@ -44,10 +44,10 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
 
     try {
       const decoded = jwt.verify(accessToken, process.env.JWT_SECRET_KEY);
-      console.log(`😀 사용자 인증 성공`, decoded);
+      console.log(`😀 auth success`, decoded);
       res.send({ success: true });
     } catch {
-      console.error('😱 사용자 인증 실패..');
+      console.error('😱 auth failuer..');
       res.send({ success: false });
     }
   };
@@ -60,7 +60,7 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
       .sort({ record: 1 })
       .toArray((err, result) => {
         if (err) throw err;
-        res.send(result.slice(-10));
+        res.send(result.slice(0, 10));
       });
   });
 
@@ -74,14 +74,12 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
 
     try {
       const isUser = await dbUser.findOne({ id: userid });
-      // const isNickname = await dbUser.findOne({ nickname: username });
 
-      if (isUser) return res.status(401).send({ error: '사용중인 아이디입니다.' });
-      // if (isNickname) return res.status(401).send({ error: '사용중인 닉네임입니다.' });
+      if (isUser) return res.status(401).send({ error: 'already used id' });
 
       dbUser.insertOne({ nickname: username, id: userid, password, record: '99:99:96' }, (err, res) => {
         if (err) throw err;
-        console.log('저장완료');
+        console.log('saved!');
       });
       res.send('Success');
     } catch (error) {
@@ -93,14 +91,13 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
   app.post('/signin', async (req, res) => {
     const { userid, password } = req.body;
     // userid 가 없거나, password가 없으면 에러
-    if (!userid || !password)
-      return res.status(401).send({ error: '사용자 아이디 또는 패스워드가 전달되지 않았습니다.' });
+    if (!userid || !password) return res.status(401).send({ error: 'No username or password was passed.' });
 
     const isUser = await dbUser.findOne({ id: userid });
     const isPassword = await dbUser.findOne({ password });
 
-    if (!isUser) return res.status(401).send({ error: '등록되지 않은 사용자입니다.' });
-    if (!isPassword) return res.status(401).send({ error: '비밀번호가 틀렸습니다.' });
+    if (!isUser) return res.status(401).send({ error: 'Unregistered user.' });
+    if (!isPassword) return res.status(401).send({ error: 'password is wrong.' });
 
     // jwt 토큰 발급
     const accessToken = jwt.sign({ userid }, process.env.JWT_SECRET_KEY, {
@@ -130,7 +127,7 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
 
     dbUser.updateOne({ nickname }, newValue, (err, res) => {
       if (err) throw err;
-      console.log('저장성공!!!');
+      console.log('saved!!!');
     });
 
     res.send(record);
@@ -139,5 +136,5 @@ MongoClient.connect(process.env.DBURL, (err, client) => {
   app.get('/rank', auth, (req, res) => res.sendFile(path.join(__dirname, 'public/index.html')));
   app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'public/index.html')));
 
-  app.listen('5010', () => console.log(`Server listening on http://localhost:${port}`));
+  app.listen(`${port}`, () => console.log(`Server listening on http://localhost:${port}`));
 });

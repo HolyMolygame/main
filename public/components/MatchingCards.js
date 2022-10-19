@@ -69,7 +69,7 @@ class MatchingCards extends Component {
     isFinished = this.props.matchedCard.length === 18;
 
     return `
-    <div class="container">
+    <div class="game-container">
       <h1 class="game-title">MATCHING CARDS</h1>
       <div class="card-container">
         ${this.props.shuffledNum
