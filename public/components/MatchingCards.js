@@ -33,7 +33,7 @@ class MatchingCards extends Component {
             }
             setTimeout(() => {
               this.props.resetOpenedCard();
-            }, 500);
+            }, 300);
           }
 
           if (isFinished)
