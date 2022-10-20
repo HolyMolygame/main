@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import Component from './components/Component.js';
 import { Header, Footer, MatchingCards, Signin, Rank, Signup, Home } from './components/index.js';
 
@@ -23,7 +24,7 @@ class App extends Component {
       user: null,
       ranker: [],
       Page: Home,
-      shuffledNum: this.shuffle(),
+      shuffledNum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
       openCard: [],
       matchedCard: [],
       isStarted: false,
@@ -141,6 +142,7 @@ class App extends Component {
   showCards(callback) {
     this.setState({
       matchedCard: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+      shuffledNum: this.shuffle(),
     });
     setTimeout(callback, 1000);
   }
